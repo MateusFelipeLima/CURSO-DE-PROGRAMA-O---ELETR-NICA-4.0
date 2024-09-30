@@ -1,0 +1,950 @@
+
+LOOP DO LED - PISCA PISCA
+
+
+void setup() {
+  
+  pinMode(LED_BUILTIN, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(LED_BUILTIN, HIGH); 
+  delay(1000);                      
+  digitalWrite(LED_BUILTIN, LOW);   
+  delay(5000);                      
+}
+
+--------------------------------------------------------------
+
+LOOP DO LED - PISCA PISCA
+
+// Define o pino do LED
+const int ledPin = 13; 
+
+void setup() {
+  // Configura o pino do LED como saída
+  pinMode(ledPin, OUTPUT);
+}
+
+void loop() {
+  // Acende o LED
+  digitalWrite(ledPin, HIGH);
+  // Aguarda 100 milissegundos (0,1 segundos)
+  delay(100);
+  // Apaga o LED
+  digitalWrite(ledPin, LOW);
+  // Aguarda mais 100 milissegundos
+  delay(100);
+}
+
+
+-------------------------------------------------------------
+
+PISCAR 3 LEDS EM SEQUENCIA
+
+
+// 6 Leds piscando em sequencia
+// Usando o conceito de Array
+// Declaracao da variavel inteira "espera" ...
+// ... para ajuste do tempo de espera
+
+int espera = 100;  
+ 
+// Declarando a matriz Pinos{} com 6 elementos
+// Os elementos sao os pinos do Arduino ligados aos Leds
+
+int Pinos[] = {2, 7, 4, 6, 5, 3}; 
+ 
+// Declarando a variável ContaPino com a ...
+// ... quantidade de pinos usados (contador)
+
+int ContaPino = 6; 
+ 
+void setup() {
+  // Os elementos da matriz sao numerados de 0 até (ContaPino -1) 
+  // Usando um for() para definir cada pino digital ...
+  // ... do Arduino como uma saída (OUTPUT)
+  // PinoArdu é uma variavel inteira e local ...
+  // ... para atribuir os numeros de pinos usados no Arduino
+  // PinoArdu=0 --> Pinos[0] é 2 --> OUTPUT
+  // PinoArdu=1 --> Pinos[1] = 7 --> OUTPUT
+  // PinoArdu=2 --> Pinos[2] = 4 --> OUTPUT
+  // PinoArdu=3 --> Pinos[3] = 6 --> OUTPUT
+  // PinoArdu=4 --> Pinos[4] = 5 --> OUTPUT
+  // PinoArdu=5 --> Pinos[5] = 3 --> OUTPUT
+   
+  for (int PinoArdu = 0; PinoArdu < ContaPino; PinoArdu++) {
+    pinMode(Pinos[PinoArdu], OUTPUT);
+  }
+}
+ 
+void loop() {
+  // Pisca Leds na ordem crescente
+  for (int PinoArdu = 0; PinoArdu < ContaPino; PinoArdu++) {
+    // liga Led 
+    digitalWrite(Pinos[PinoArdu], HIGH);
+    delay(espera);
+    // desliga Led
+    digitalWrite(Pinos[PinoArdu], LOW);
+ 
+  }
+ 
+  // Pisca Leds em ordem descrescente
+  for (int PinoArdu = ContaPino - 1; PinoArdu >= 0; PinoArdu--) {
+    // liga Led
+    digitalWrite(Pinos[PinoArdu], HIGH);
+    delay(espera);
+    // desliga Led
+    digitalWrite(Pinos[PinoArdu], LOW);
+  }
+}
+
+---------------------------------------------------------------------------
+
+CONTROLADOR DO LED UTILIZANDO O POTENCIOMETRO
+
+
+// Definições de pinos
+const int potPin = A0; // Pino do potenciômetro
+const int ledPin = 9;  // Pino do LED
+
+void setup() {
+  // Configura o pino do LED como saída
+  pinMode(ledPin, OUTPUT);
+}
+
+void loop() {
+  // Lê o valor do potenciômetro (0 a 1023)
+  int potValue = analogRead(potPin);
+  
+  // Mapeia o valor do potenciômetro (0 a 1023) para PWM (0 a 255)
+  int ledValue = map(potValue, 0, 1023, 0, 255);
+  
+  // Define a intensidade do LED
+  analogWrite(ledPin, ledValue);
+  
+  // Aguarda um curto período para estabilização
+  delay(10);
+}
+
+--------------------------------------------------------------------------------
+
+CODIGO SEMAFARO
+
+// Definição dos pinos dos LEDs
+const int ledVermelho = 13;
+const int ledAmarelo = 12;
+const int ledVerde = 11;
+
+void setup() {
+  // Configuração dos pinos como saída
+  pinMode(ledVermelho, OUTPUT);
+  pinMode(ledAmarelo, OUTPUT);
+  pinMode(ledVerde, OUTPUT);
+}
+
+void loop() {
+  // Luz vermelha acesa
+  digitalWrite(ledVermelho, HIGH);
+  delay(5000); // Espera 5 segundos
+  digitalWrite(ledVermelho, LOW);
+
+  // Luz verde acesa
+  digitalWrite(ledVerde, HIGH);
+  delay(5000); // Espera 5 segundos
+  digitalWrite(ledVerde, LOW);
+
+  // Luz amarela acesa
+  digitalWrite(ledAmarelo, HIGH);
+  delay(5000); // Espera 2 segundos
+  digitalWrite(ledAmarelo, LOW);
+}
+
+---------------------------------------------------------------------------------------
+
+CODIGO SEMAFARO COM PEDESTRE
+
+int carroVermelho = 13; 
+int carroAmarelo = 12; 
+int carroVerde = 11; 
+int pessoaVerde = 2;
+int pessoaVermelho = 3; 
+int botao = 7;
+int tempoAtravessando = 5000;
+unsigned long mudaTempo;
+ 
+void setup() {
+  
+  // Inicializamos o temporizador aqui
+  // Observe que o "contador" foi atrelado
+  // a váriavel que setamos acima.
+  
+  mudaTempo = millis();
+  
+  /* 
+   *  Aqui nós configuramos alguns dos pinos da nossa placa Arduino como "saídas" e outros comos "entradas".
+   *  Dica do RCosta: Isso significa que alguns pinos "mostrarão" o resultado enquanto outro 
+   *  atuará como um sensor, "captando informações" do mundo exterior.
+   *  OBS: Alguns perguntarão: por que utilizar "OUTPUT" e "INPUT" ao invés de utilizarmos "SAIDA" e "ENTRADA" respectivamente?
+   *  Pessoal, a resposta é que não podemos fazer isso neste caso, isso porque a "memória interna" do Arduino só conhece estes
+   *  comandos em idioma Inglês apenas, assim como outras situações que perceberão ao longo dos estudos, não desanima! :)
+   *  
+   */
+  
+  pinMode(carroVermelho, OUTPUT);
+  pinMode(carroAmarelo, OUTPUT);
+  pinMode(carroVerde, OUTPUT);
+  pinMode(pessoaVermelho, OUTPUT);
+  pinMode(pessoaVerde, OUTPUT);
+  pinMode(botao, INPUT);
+  
+  //Começamos deixando acesas as luzes: verde (referente aos veículos) e vermelha (referente aos pedestres)
+  //OBS: O comando "Serial.begin" utilizado abaixo serve neste caso como uma espécie de "DEBUG", isto porque
+  //com este comando somos capazes de "acompanhar" o funcionamento do circuito pelo Painel Serial da IDE do Arduino!
+  
+  digitalWrite(carroVerde, HIGH);
+  digitalWrite(pessoaVermelho, HIGH);
+  digitalWrite(carroVermelho, LOW);
+  digitalWrite(carroAmarelo, LOW);
+  digitalWrite(pessoaVerde, LOW);
+  Serial.begin(9600);
+}
+ 
+void loop() {
+  
+  // A variável que vamos setar abaixo servirá para "guardar" o estado do nosso botão (pressionado ou não pressionado)
+  
+  int estado = digitalRead(botao);
+  delay(50);
+  Serial.println(estado);
+  
+  // Se o botão está sendo pressionado E se já passou 5 segundos desde a última pressão.
+  
+  if (estado == HIGH && (millis() - mudaTempo) > 5000) {
+    
+    //Então SE SIM, executa a função de mudar o estado das luzes abaixo:
+    mudaLuzes();
+  }
+}
+ 
+void mudaLuzes() {
+  digitalWrite(carroVerde, LOW);    // A luz verde é desligada
+  digitalWrite(carroAmarelo, HIGH); // A luz amarela vai ligar por 4 segundos
+  delay(4000); 
+  
+  digitalWrite(carroAmarelo, LOW); // A luz amarela vai desligar
+  digitalWrite(carroVermelho, HIGH); // A luz vermelha vai ligar por 5 segundos
+ 
+  digitalWrite(pessoaVermelho, LOW);
+  digitalWrite(pessoaVerde, HIGH);
+  delay(tempoAtravessando);
+  
+  // Pisca a luz verde dos PEDESTRES
+  for (int x=0; x<10; x++) {
+    digitalWrite(pessoaVerde, LOW);
+    delay(160);
+    digitalWrite(pessoaVerde, HIGH);
+    delay(160);
+  }
+  digitalWrite(pessoaVerde, LOW);
+  digitalWrite(carroVermelho, LOW);
+  digitalWrite(pessoaVermelho, HIGH);
+  digitalWrite(carroVerde, HIGH);
+ 
+  mudaTempo = millis();
+ }
+
+---------------------------------------------------------------------------------------------]
+
+SEMAFARO COM DISPLAY
+
+#define carroVERDE A0 //Define carroVERDE como A0
+#define carroAMARELO A1 //Define carroAMARELO como A1
+#define carroVERMELHO A2 //Define carroVERMELHO como A2
+#define pedestreVERDE A4 //Define pedestreVERDE como A3
+#define pedestreVERMELHO A5 //Define pedestreVERMELHO como A4
+#define A_DISPLAY 4 //Define A_DISPLAY como 2
+#define B_DISPLAY 5 //Define B_DISPLAY como 3
+#define C_DISPLAY 6 //Define C_DISPLAY como 4
+#define D_DISPLAY 7 //Define D_DISPLAY como 5
+#define E_DISPLAY 8 //Define E_DISPLAY como 6
+#define F_DISPLAY 3 //Define F_DISPLAY como 7
+#define G_DISPLAY 2 //Define G_DISPLAY como 8
+#define botao A3 //Define o botão como 11
+
+void setup()
+{      
+
+//Configura os pinos dos semáforos como saída   
+pinMode(carroVERDE, OUTPUT); //Configura pino 2 como saída   
+pinMode(carroAMARELO, OUTPUT); //Configura pino 3 como saída   
+pinMode(carroVERMELHO, OUTPUT); //Configura pino 4 como saída   
+pinMode(pedestreVERDE, OUTPUT); //Configura pino 11 como saída   
+pinMode(pedestreVERMELHO, OUTPUT); //Configura pino 12 como saída   
+
+//=============================   
+
+pinMode(botao, INPUT_PULLUP); //Configura o pino 11 como entrada   
+
+//Desliga todos dos semáforos   
+digitalWrite(carroVERDE, LOW); //Desliga o LED Verde dos carro   
+digitalWrite(carroAMARELO, LOW); //Desliga o LED Amarelo dos carro   
+digitalWrite(carroVERMELHO, LOW); //Desliga o LED Vermelho dos carro   
+digitalWrite(pedestreVERDE, LOW); //Desliga o LED Verde dos pedestre   
+digitalWrite(pedestreVERMELHO, LOW); //Desliga o LED Verde dos carro   
+
+//=================================   
+
+//Configura os pinos do display como saída   
+
+pinMode(A_DISPLAY, OUTPUT); //Configura pino 2 como saída   
+pinMode(B_DISPLAY, OUTPUT); //Configura pino 3 como saída   
+pinMode(C_DISPLAY, OUTPUT); //Configura pino 4 como saída   
+pinMode(D_DISPLAY, OUTPUT); //Configura pino 11 como saída   
+pinMode(E_DISPLAY, OUTPUT); //Configura pino 12 como saída   
+pinMode(F_DISPLAY, OUTPUT); //Configura pino 11 como saída   
+pinMode(G_DISPLAY, OUTPUT); //Configura pino 12 como saída   
+
+//=============================   
+
+//Desliga todos os segmentos do display   
+apaga_segmentos();   
+
+//=================================
+
+}
+
+void loop()
+{   
+
+while(!(digitalRead(botao))) //Enquanto o botao do pedestre não for pressionado   
+{     
+
+digitalWrite(carroVERDE, HIGH); //Liga o LED Verde do carro     
+digitalWrite(pedestreVERMELHO, HIGH); //Liga o LED Vermelho do pedestre   
+
+}   
+
+digitalWrite(carroVERDE, LOW); //Apaga o LED Verde do carro   
+digitalWrite(carroAMARELO,HIGH); //Liga o LED Amarelo do carro   
+
+tempo_amarelo(); //Vai para a função de contagem no amarelo   
+
+digitalWrite(carroAMARELO, LOW); //Apaga o LED Amarelo do carro   
+digitalWrite(carroVERMELHO, HIGH); //Liga o LED Vermelho do carro   
+
+delay(1000); //Aguarda 1 segundo      
+
+digitalWrite(pedestreVERMELHO, LOW); //Apaga o LED Vermelho do pedestre   
+digitalWrite(pedestreVERDE, HIGH); //Liga o LED Verde do pedestre   
+
+tempo_vermelho(); //Vai para função de contagem no vermelho   
+
+delay(1000); //Aguarda 1 segundo   
+
+digitalWrite(pedestreVERDE, LOW); //Apaga LED Verde do pedestre   
+digitalWrite(carroVERMELHO, LOW); //Apaga LED Vermelho do pedestre   
+
+}
+
+
+void tempo_vermelho()
+{   
+
+//Desenha o 9 no display   
+digitalWrite(A_DISPLAY, HIGH); //Liga o segmento A do display   
+digitalWrite(B_DISPLAY, HIGH); //Liga o segmento B do display   
+digitalWrite(C_DISPLAY, HIGH); //Liga o segmento C do display   
+digitalWrite(F_DISPLAY, HIGH); //Liga o segmento F do display   
+digitalWrite(G_DISPLAY, HIGH); //Liga o segmento G do display   
+
+//=======================      
+
+delay(1000); //Aguarda 1 segundo   
+
+apaga_segmentos(); //Vai para a função de apagar os segmentos   
+
+//Desenha o 8 no display   
+digitalWrite(A_DISPLAY, HIGH); //Liga o segmento A do display   
+digitalWrite(B_DISPLAY, HIGH); //Liga o segmento B do display   
+digitalWrite(C_DISPLAY, HIGH); //Liga o segmento C do display   
+digitalWrite(D_DISPLAY, HIGH); //Liga o segmento D do display   
+digitalWrite(E_DISPLAY, HIGH); //Liga o segmento E do display   
+digitalWrite(F_DISPLAY, HIGH); //Liga o segmento F do display   
+digitalWrite(G_DISPLAY, HIGH); //Liga o segmento G do display   
+
+//=======================      
+
+delay(1000); //Aguarda 1 segundo   
+
+apaga_segmentos(); //Vai para a função de apagar os segmentos   
+
+//Desenha o 7 no display   
+digitalWrite(A_DISPLAY, HIGH); //Liga o segmento A do display   
+digitalWrite(B_DISPLAY, HIGH); //Liga o segmento B do display   
+digitalWrite(C_DISPLAY, HIGH); //Liga o segmento C do display   
+
+//=======================      
+
+delay(1000); //Aguarda 1 segundo   
+
+apaga_segmentos(); //Vai para a função de apagar os segmentos   
+
+//Desenha o 6 no display   
+digitalWrite(B_DISPLAY, HIGH); //Liga o segmento B do display   
+digitalWrite(D_DISPLAY, HIGH); //Liga o segmento D do display   
+digitalWrite(E_DISPLAY, HIGH); //Liga o segmento E do display   
+digitalWrite(F_DISPLAY, HIGH); //Liga o segmento F do display   
+digitalWrite(G_DISPLAY, HIGH); //Liga o segmento G do display   
+
+//=======================      
+
+delay(1000); //Aguarda 1 segundo   
+
+apaga_segmentos(); //Vai para a função de apagar os segmentos   
+
+//Desenha o 5 no display   
+digitalWrite(A_DISPLAY, HIGH); //Liga o segmento A do display   
+digitalWrite(B_DISPLAY, HIGH); //Liga o segmento B do display   
+digitalWrite(D_DISPLAY, HIGH); //Liga o segmento D do display   
+digitalWrite(F_DISPLAY, HIGH); //Liga o segmento F do display   
+digitalWrite(G_DISPLAY, HIGH); //Liga o segmento G do display   
+
+//=======================      
+
+delay(1000); //Aguarda 1 segundo   
+
+apaga_segmentos(); //Vai para a função de apagar os segmentos   
+
+//Desenha o 4 no display   
+digitalWrite(B_DISPLAY, HIGH); //Liga o segmento B do display   
+digitalWrite(C_DISPLAY, HIGH); //Liga o segmento C do display   
+digitalWrite(F_DISPLAY, HIGH); //Liga o segmento F do display   
+digitalWrite(G_DISPLAY, HIGH); //Liga o segmento G do display   
+
+//=======================      
+
+digitalWrite(pedestreVERDE, LOW); //Liga o LED Verde do pedestre   
+digitalWrite(pedestreVERMELHO, !(digitalRead(pedestreVERMELHO)));//Inverte estado do LED Vermelho do pedestre      
+
+delay(1000); //Aguarda 1 segundo   
+apaga_segmentos(); //Vai para a função de apagar os segmentos   
+
+//Desenha o 3 no display   
+digitalWrite(A_DISPLAY, HIGH); //Liga o segmento A do display   
+digitalWrite(B_DISPLAY, HIGH); //Liga o segmento B do display   
+digitalWrite(C_DISPLAY, HIGH); //Liga o segmento C do display   
+digitalWrite(D_DISPLAY, HIGH); //Liga o segmento D do display   
+digitalWrite(G_DISPLAY, HIGH); //Liga o segmento G do display   
+
+//=======================      
+
+digitalWrite(pedestreVERMELHO, !(digitalRead(pedestreVERMELHO))); //Inverte estado do LED Vermelho do pedestre      
+
+delay(1000); //Aguarda 1 segundo   
+apaga_segmentos(); //Vai para a função de apagar os segmentos      
+
+//Desenha o 2 no display   
+digitalWrite(A_DISPLAY, HIGH); //Liga o segmento A do display   
+digitalWrite(B_DISPLAY, HIGH); //Liga o segmento B do display   
+digitalWrite(D_DISPLAY, HIGH); //Liga o segmento D do display   
+digitalWrite(E_DISPLAY, HIGH); //Liga o segmento E do display   
+digitalWrite(G_DISPLAY, HIGH); //Liga o segmento G do display   
+
+//=======================      
+
+digitalWrite(pedestreVERMELHO, !(digitalRead(pedestreVERMELHO))); //Inverte estado do LED Vermelho do pedestre      
+
+delay(1000); //Aguarda 1 segundo   
+apaga_segmentos(); //Vai para a função de apagar os segmentos   
+
+//Desenha o 1 no display   
+digitalWrite(B_DISPLAY, HIGH); //Liga o segmento B do display   
+digitalWrite(C_DISPLAY, HIGH); //Liga o segmento C do display   
+
+//======================      
+
+digitalWrite(pedestreVERMELHO, !(digitalRead(pedestreVERMELHO))); //Inverte estado do LED Vermelho do pedestre      
+
+delay(1000); //Aguarda 1 segundo   
+apaga_segmentos(); //Vai para a função de apagar os segmentos   
+
+digitalWrite(pedestreVERMELHO, !(digitalRead(pedestreVERMELHO))); //Inverte estado do LED Vermelho do pedestre
+
+}
+
+void tempo_amarelo()
+{      
+
+//Desenha o 3 no display   
+digitalWrite(A_DISPLAY, HIGH); //Liga o segmento A do display   
+digitalWrite(B_DISPLAY, HIGH); //Liga o segmento B do display   
+digitalWrite(C_DISPLAY, HIGH); //Liga o segmento C do display   
+digitalWrite(D_DISPLAY, HIGH); //Liga o segmento D do display   
+digitalWrite(G_DISPLAY, HIGH); //Liga o segmento G do display   
+
+//===================      
+
+delay(1000); //Aguarda 1 segundo   
+apaga_segmentos(); //Vai para a função de apagar os segmentos   
+
+//Desenha o 2 no display   
+digitalWrite(A_DISPLAY, HIGH); //Liga o segmento A do display   
+digitalWrite(B_DISPLAY, HIGH); //Liga o segmento B do display   
+digitalWrite(D_DISPLAY, HIGH); //Liga o segmento D do display   
+digitalWrite(E_DISPLAY, HIGH); //Liga o segmento E do display   
+digitalWrite(G_DISPLAY, HIGH); //Liga o segmento G do display   
+
+//=====================      
+
+delay(1000); //Aguarda 1 segundo   
+apaga_segmentos(); //Vai para a função de apagar os segmentos   
+
+//Desenha o 1 no display   
+digitalWrite(B_DISPLAY, HIGH); //Liga o segmento B do display   
+digitalWrite(C_DISPLAY, HIGH); //Liga o segmento C do display   
+
+//=======================      
+
+delay(1000); //Aguarda 1 segundo   
+apaga_segmentos(); //Vai para a função de apagar os segmentos   
+
+}
+
+
+void apaga_segmentos()
+{      
+
+digitalWrite(A_DISPLAY, LOW); //Desliga o segmento A do display   
+digitalWrite(B_DISPLAY, LOW); //Desliga o segmento B do display   
+digitalWrite(C_DISPLAY, LOW); //Desliga o segmento C do display   
+digitalWrite(D_DISPLAY, LOW); //Desliga o segmento D do display   
+digitalWrite(E_DISPLAY, LOW); //Desliga o segmento E do display   
+digitalWrite(F_DISPLAY, LOW); //Desliga o segmento F do display
+digitalWrite(G_DISPLAY, LOW); //Desliga o segmento G do display   
+
+}
+
+-----------------------------------------------------------------------------
+
+CODIGO SEMAFARO COM LCD
+
+#include <LiquidCrystal.h> // Adiciona a biblioteca "LiquidCrystal" ao projeto
+
+// Pinagem do LCD (RS, E, D4, D5, D6, D7)
+LiquidCrystal lcd(8, 9, 10, 11, 12, 13);
+
+// Definindo os pinos dos LEDs do semáforo para as duas direções
+#define LED_VERDE_1 2
+#define LED_AMARELO_1 3
+#define LED_VERMELHO_1 4
+#define LED_VERDE_2 5
+#define LED_AMARELO_2 6
+#define LED_VERMELHO_2 7
+
+void setup()
+{
+  // Iniciando o LCD de 16x2
+  lcd.begin(16, 2);
+  delay(100);
+
+  // Configurando os pinos dos LEDs como saída
+  pinMode(LED_VERDE_1, OUTPUT);
+  pinMode(LED_AMARELO_1, OUTPUT);
+  pinMode(LED_VERMELHO_1, OUTPUT);
+  pinMode(LED_VERDE_2, OUTPUT);
+  pinMode(LED_AMARELO_2, OUTPUT);
+  pinMode(LED_VERMELHO_2, OUTPUT);
+
+  // Inicializando todos os LEDs como apagados
+  digitalWrite(LED_VERDE_1, LOW);
+  digitalWrite(LED_AMARELO_1, LOW);
+  digitalWrite(LED_VERMELHO_1, LOW);
+  digitalWrite(LED_VERDE_2, LOW);
+  digitalWrite(LED_AMARELO_2, LOW);
+  digitalWrite(LED_VERMELHO_2, LOW);
+}
+
+void loop()
+{
+  // Ativar semáforo para direção 1 (LED verde 1, vermelho 2)
+  digitalWrite(LED_VERDE_1, HIGH);
+  digitalWrite(LED_VERMELHO_2, HIGH);
+
+  // Mostrar setas ">>>>>>>>>>>>>>>" no LCD com movimento para a direita e esquerda
+  moverSetasVaivem(">>>>>>>>>>>>>>>");
+  lcd.setCursor(0, 1);
+  lcd.print("FAIXA 1 LIBERADA");
+
+  delay(5000); // Manter direção 1 ativada por 5 segundos
+
+  // Mudar para amarelo direção 1
+  digitalWrite(LED_VERDE_1, LOW);
+  digitalWrite(LED_AMARELO_1, HIGH);
+  delay(2000); // Esperar 2 segundos com o amarelo
+
+  // Desligar direção 1 e ligar direção 2
+  digitalWrite(LED_AMARELO_1, LOW);
+  digitalWrite(LED_VERMELHO_1, HIGH);
+  digitalWrite(LED_VERDE_2, HIGH);
+  digitalWrite(LED_VERMELHO_2, LOW);
+
+  // Mostrar setas "<<<<<<<<<<<<<" no LCD com movimento para a esquerda e direita
+  moverSetasVaivem("<<<<<<<<<<<<<<<");
+  lcd.setCursor(0, 1);
+  lcd.print("FAIXA 2 LIBERADA");
+
+  delay(5000); // Manter direção 2 ativada por 5 segundos
+
+  // Mudar para amarelo direção 2
+  digitalWrite(LED_VERDE_2, LOW);
+  digitalWrite(LED_AMARELO_2, HIGH);
+  delay(2000); // Esperar 2 segundos com o amarelo
+
+  // Desligar direção 2 e repetir o ciclo
+  digitalWrite(LED_AMARELO_2, LOW);
+  digitalWrite(LED_VERMELHO_2, HIGH);
+  digitalWrite(LED_VERMELHO_1, LOW);
+}
+
+// Função para mover setas no LCD de um lado ao outro (vai e vem)
+void moverSetasVaivem(String setas)
+{
+  // Movimentar as setas da esquerda para a direita
+  for (int i = 0; i <= 16 - setas.length(); i++) {
+    lcd.clear();
+    lcd.setCursor(i, 0); // Define a posição do texto na primeira linha
+    lcd.print(setas); // Imprime as setas na posição
+    delay(300); // Pequena pausa para dar a impressão de movimento
+  }
+
+  // Movimentar as setas de volta da direita para a esquerda
+  for (int i = 16 - setas.length(); i >= 0; i--) {
+    lcd.clear();
+    lcd.setCursor(i, 0); // Move as setas de volta
+    lcd.print(setas);
+    delay(300);
+  }
+}
+
+-----------------------------------------------------------------------------------------
+
+#include <LiquidCrystal.h> // Adiciona a biblioteca "LiquidCrystal" ao projeto
+
+// Pinagem do LCD (RS, E, D4, D5, D6, D7)
+LiquidCrystal lcd(8, 9, 10, 11, 12, 13);
+
+// Definindo os pinos dos LEDs do semáforo para as duas direções
+#define LED_VERDE_1 2
+#define LED_AMARELO_1 3
+#define LED_VERMELHO_1 4
+#define LED_VERDE_2 5
+#define LED_AMARELO_2 6
+#define LED_VERMELHO_2 7
+
+void setup()
+{
+  // Iniciando o LCD de 16x2
+  lcd.begin(16, 2);
+
+  Serial.begin(9600);
+  delay(100);
+
+  // Configurando os pinos dos LEDs como saída
+  pinMode(LED_VERDE_1, OUTPUT);
+  pinMode(LED_AMARELO_1, OUTPUT);
+  pinMode(LED_VERMELHO_1, OUTPUT);
+  pinMode(LED_VERDE_2, OUTPUT);
+  pinMode(LED_AMARELO_2, OUTPUT);
+  pinMode(LED_VERMELHO_2, OUTPUT);
+
+  // Inicializando todos os LEDs como apagados
+  digitalWrite(LED_VERDE_1, LOW);
+  digitalWrite(LED_AMARELO_1, LOW);
+  digitalWrite(LED_VERMELHO_1, LOW);
+  digitalWrite(LED_VERDE_2, LOW);
+  digitalWrite(LED_AMARELO_2, LOW);
+  digitalWrite(LED_VERMELHO_2, LOW);
+}
+
+void loop()
+{
+  // Ativar semáforo para direção 1 (LED verde 1, vermelho 2)
+  digitalWrite(LED_VERDE_1, HIGH);
+  digitalWrite(LED_VERMELHO_2, HIGH);
+  lcd.print(">>>>>>");
+  for (int i = 0; i <16; i++) {
+    lcd.scrollDisplayLeft();
+    delay(300); // Pequena pausa para dar a impressão de movimento
+  }
+  // Mostrar setas ">>>>>>>>>>>>>>>" no LCD com movimento para a direita e esquerda// Manter direção 1 ativada por 5 segundos
+
+  // Mudar para amarelo direção 1
+  digitalWrite(LED_VERDE_1, LOW);
+  digitalWrite(LED_AMARELO_1, HIGH);
+  delay(2000); // Esperar 2 segundos com o amarelo
+
+  // Desligar direção 1 e ligar direção 2
+  digitalWrite(LED_AMARELO_1, LOW);
+  digitalWrite(LED_VERMELHO_1, HIGH);
+  digitalWrite(LED_VERDE_2, HIGH);
+  digitalWrite(LED_VERMELHO_2, LOW);
+
+  // Mostrar setas "<<<<<<<<<<<<<" no LCD com movimento para a esquerda e direita
+  moverSetasVaivem("<<<<<<Por esse lado<<<<<<<<<");
+  lcd.setCursor(0, 1);
+  lcd.print("FAIXA 2 LIBERADA");
+
+  delay(5000); // Manter direção 2 ativada por 5 segundos
+
+  // Mudar para amarelo direção 2
+  digitalWrite(LED_VERDE_2, LOW);
+  digitalWrite(LED_AMARELO_2, HIGH);
+  delay(2000); // Esperar 2 segundos com o amarelo
+
+  // Desligar direção 2 e repetir o ciclo
+  digitalWrite(LED_AMARELO_2, LOW);
+  digitalWrite(LED_VERMELHO_2, HIGH);
+  digitalWrite(LED_VERMELHO_1, LOW);
+}
+
+// Função para mover setas no LCD de um lado ao outro (vai e vem)
+void moverSetasVaivem(String setas)
+{
+  // Movimentar as setas da esquerda para a direita
+  lcd.print(">>>>>>");
+  for (int i = 0; i <= 16; i++) {
+    lcd.scrollDisplayLeft();
+    delay(300); // Pequena pausa para dar a impressão de movimento
+  }
+
+  // Movimentar as setas de volta da direita para a esquerda
+  for (int i = 16 - setas.length(); i >= 0; i--) {
+    lcd.clear();
+    lcd.setCursor(i, 0); // Move as setas de volta
+    lcd.print(setas);
+    delay(300);
+  }
+}
+
+---------------------------------------------------------------------------------------
+
+MOTOR 
+
+#include <Servo.h> // Biblioteca para controlar o servo motor
+
+// Cria o objeto servo
+Servo servoMotor;
+
+// Pinos do joystick
+int pinoJoystickX = A0; // Pino analógico conectado ao eixo X do joystick
+int pinoJoystickY = A1; // Pino analógico conectado ao eixo Y do joystick
+
+// Pino do servo motor
+int pinoServo = 9;  // Pino digital onde o servo está conectado
+
+void setup() {
+  // Inicializa o servo motor no pino especificado
+  servoMotor.attach(pinoServo);
+}
+
+void loop() {
+  // Lê o valor do eixo X e Y do joystick (varia de 0 a 1023)
+  int valorJoystickX = analogRead(pinoJoystickX);
+  int valorJoystickY = analogRead(pinoJoystickY);
+
+  // Mapeia o valor do joystick X para o ângulo do servo (0 a 180 graus)
+  int anguloServoX = map(valorJoystickX, 0, 1023, 0, 180);
+
+  // Mapeia o valor do joystick Y para o ângulo do servo (0 a 180 graus, para controle reverso)
+  int anguloServoY = map(valorJoystickY, 0, 1023, 180, 0);
+
+  // Verifica qual eixo está sendo movido com mais intensidade e ajusta o servo
+  if (valorJoystickX > 512) {
+    // Se o eixo X estiver sendo movido mais, controla o servo para ir à frente
+    servoMotor.write(anguloServoX);
+  } else if (valorJoystickY > 512) {
+    // Se o eixo Y estiver sendo movido mais, controla o servo para retornar
+    servoMotor.write(anguloServoY);
+  }
+
+  // Pequena pausa para evitar leituras muito rápidas
+  delay(15);
+}
+
+
+------------------------------------------------------------------------------------------------
+
+CODIGO SENSOR DE UMIDADE
+
+#include <dht.h> 
+#include <LiquidCrystal.h>  //Carrega a biblioteca LiquidCrystal nativa na IDE
+
+//Define os pinos que serão utilizados para ligação ao display
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+ 
+dht DHT; // Cria um objeto da classe dht
+uint32_t timer = 0;
+ 
+void setup()
+{
+  Serial.begin(9600); // Inicializa serial com taxa de transmissão de 9600 bauds
+  lcd.begin(16, 2); // Define o display com 16 colunas e 2 linhas
+  lcd.clear(); // limpa a tela do display
+}
+ 
+void loop() {
+  // Executa 1 vez a cada 2 segundos
+  if(millis() - timer>= 2000)
+  {
+ 
+    DHT.read11(A1); // chama método de leitura da classe dht,
+                    // com o pino de transmissão de dados ligado no pino A1
+ 
+    // Exibe na serial o valor de umidade
+    Serial.print("Umidade = ");
+    Serial.print(DHT.humidity);
+    Serial.print(" %  ");
+ 
+    // Exibe na serial o valor da temperatura
+    Serial.print("Temperatura = ");
+    Serial.print(DHT.temperature); 
+    Serial.println(" Celsius  ");
+
+    // Exibe no display LCD o valor da humidade
+    lcd.setCursor(0,0); // Define o cursor na posição de início
+    lcd.print("Humd. = ");
+    lcd.print(DHT.humidity);
+    lcd.print("%");
+
+    // Exibe no display LCD o valor da temperatura
+    lcd.setCursor(0,1); // Define o cursor na posição de início
+    lcd.print("Temp. = ");
+    lcd.print(DHT.temperature);
+    lcd.write(B11011111); // Imprime o símbolo de grau
+    lcd.print("C");
+
+    timer = millis(); // Atualiza a referência
+  }
+}
+
+--------------------------------------------------------------------------------------------
+
+SENSOR ULTRASONIC
+
+#include "Ultrasonic.h"
+Ultrasonic ultrasonic(5, 6); 
+
+
+const int ledVerde = 2;
+const int ledAmarelo = 4;
+const int ledVermelho = 3;
+
+long microsec = 0; 
+float distanciaCM = 0;
+
+void setup() {
+  Serial.begin(9600); 
+  pinMode(ledVerde, OUTPUT); 
+  pinMode(ledAmarelo, OUTPUT);
+  pinMode(ledVermelho, OUTPUT);
+}
+
+void loop() {
+  //Lendo o valor do sensor
+  microsec = ultrasonic.timing();
+
+  //Convertendo a distância em CM
+  distanciaCM = ultrasonic.convert(microsec, Ultrasonic::CM);
+
+  ledDistancia();
+  Serial.print(distanciaCM);
+  Serial.println(" cm");
+  delay(500);
+}
+
+void ledDistancia() {
+
+  digitalWrite(ledVerde, LOW);
+  digitalWrite(ledAmarelo, LOW);
+  digitalWrite(ledVermelho, LOW);
+
+  if (distanciaCM >= 30 ) {
+    digitalWrite(ledVerde, HIGH); 
+  }
+ 
+  if (distanciaCM >= 15 and distanciaCM < 30) {
+    digitalWrite(ledAmarelo, HIGH); 
+  }
+
+  if (distanciaCM < 15) { 
+    digitalWrite(ledVermelho, HIGH); 
+  }
+}
+
+----------------------------------------------------------------------------------------PROVA ULTRA-SOM + LCD
+
+#include <LiquidCrystal.h>
+#include "Ultrasonic.h"
+Ultrasonic ultrasonic(5, 6); 
+
+//Pinagem do LCD (RS, E, D4, D5, D6, D7)
+LiquidCrystal lcd(8, 9, 10, 11, 12, 13);
+
+const int ledVerde = 2;
+const int ledAmarelo = 4;
+const int ledVermelho = 3;
+
+long microsec = 0; 
+float distanciaCM = 0;
+
+void setup() {
+
+  // Iniciando o LCD de 16x2
+
+  lcd.begin(16, 2);
+
+  Serial.begin(9600); 
+  pinMode(ledVerde, OUTPUT); 
+  pinMode(ledAmarelo, OUTPUT);
+  pinMode(ledVermelho, OUTPUT);
+}
+
+void loop() {
+
+  microsec = ultrasonic.timing();
+  distanciaCM = ultrasonic.convert(microsec, Ultrasonic::CM);
+
+  ledDistancia();
+  Serial.print(distanciaCM);
+  Serial.println(" cm");
+  delay(500);
+  lcd.clear();
+}
+
+void ledDistancia() {
+
+  digitalWrite(ledVerde, LOW);
+  digitalWrite(ledAmarelo, LOW);
+  digitalWrite(ledVermelho, LOW);
+
+  if (distanciaCM >= 30 ) {
+    lcd.setCursor(0, 1);
+    lcd.print("longe");
+    digitalWrite(ledVerde, HIGH); 
+    
+  }
+ 
+  else if (distanciaCM >= 15 && distanciaCM < 30) {
+    lcd.setCursor(0, 1);
+    lcd.print("Próximo");
+    digitalWrite(ledAmarelo, HIGH); 
+    
+   
+  } else  { 
+    lcd.setCursor(0, 1);
+    lcd.print("perto");
+    digitalWrite(ledVermelho, HIGH); 
+  }
+  delay(200);
+}
