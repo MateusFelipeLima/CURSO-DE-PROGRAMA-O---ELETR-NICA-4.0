@@ -1,0 +1,709 @@
+PERGUNTA 01
+
+#include <stdio.h>
+
+int main() {
+    short int numero;
+
+    // Solicita um número inteiro ao usuário
+    printf("Digite um número inteiro (short int): ");
+    scanf("%hd", &numero);
+
+    // Imprime o número de volta na tela
+    printf("O número inserido foi: %hd\n", numero);
+
+    return 0;
+}
+
+=========================================================
+
+#include <stdio.h>
+
+int main() {
+    int numero;
+
+    // Solicita um número inteiro ao usuário
+    printf("Digite um número inteiro (int): ");
+    scanf("%d", &numero);
+
+    // Imprime o número de volta na tela
+    printf("O número inserido foi: %d\n", numero);
+
+    return 0;
+}
+
+=========================================================
+#include <stdio.h>
+
+int main() {
+    int num1, num2;
+
+    // Solicita dois números inteiros ao usuário
+    printf("Digite 2 números inteiros: ");
+    scanf("%d %d", &num1, &num2);
+
+    // Imprime os dois números na linha seguinte
+    printf("Os números inseridos são %d e %d\n", num1, num2);
+
+    return 0;
+}
+-----------------------------------------------------------
+pergunta 02
+
+#include <stdio.h>
+
+int main() {
+    float num1, num2;
+    float soma, produto;
+
+    // Solicita ao usuário para inserir dois números reais
+    printf("Digite o primeiro número real: ");
+    scanf("%f", &num1);
+
+    printf("Digite o segundo número real: ");
+    scanf("%f", &num2);
+
+    // Calcula a soma e o produto dos números
+    soma = num1 + num2;
+    produto = num1 * num2;
+
+    // Imprime os resultados
+    printf("A soma dos números é: %.2f\n", soma);
+    printf("O produto dos números é: %.2f\n", produto);
+
+    return 0;
+}
+
+-----------------------------------------------------------
+pergunta 03
+
+#include <stdio.h>
+
+int main() {
+    int num1, num2;
+    int quociente_inteiro, resto;
+    float quociente_real;
+
+    // Solicita ao usuário para inserir dois números inteiros
+    printf("Digite 2 números inteiros: ");
+    scanf("%d %d", &num1, &num2);
+
+    // Calcula o quociente inteiro e o resto da divisão
+    quociente_inteiro = num1 / num2;
+    resto = num1 % num2;
+
+    // Calcula o quociente real
+    quociente_real = (float)num1 / num2;
+
+    // Imprime os resultados
+    printf("quociente inteiro = %d\n", quociente_inteiro);
+    printf("resto = %d\n", resto);
+    printf("quociente = %.2f\n", quociente_real);
+
+    return 0;
+}
+
+-----------------------------------------------------------
+
+PERGUNTA 04
+
+#include <stdio.h>
+
+int main() {
+    double num1, num2;     // Usando double para maior precisão
+    double quociente;
+
+    // Solicita ao usuário para inserir dois números reais
+    printf("Digite 2 números reais: ");
+    scanf("%lf %lf", &num1, &num2);
+
+    // Verifica se o denominador é diferente de zero para evitar divisão por zero
+    if (num2 == 0) {
+        printf("Erro: Divisão por zero não é permitida.\n");
+        return 1; // Encerra o programa com um código de erro
+    }
+
+    // Calcula o quociente da divisão
+    quociente = num1 / num2;
+
+    // Imprime o quociente com 20 casas decimais
+    printf("Quociente com 20 casas decimais: %.20lf\n", quociente);
+
+    return 0;
+}
+
+------------------------------------------------------------
+
+PERGUNTA 05
+
+#include <stdio.h>
+
+int main() {
+    int horas, minutos;
+    float segundos;
+
+    // Solicita ao usuário para inserir horas, minutos e segundos
+    printf("Digite as horas: ");
+    scanf("%d", &horas);
+
+    printf("Digite os minutos: ");
+    scanf("%d", &minutos);
+
+    printf("Digite os segundos: ");
+    scanf("%f", &segundos);
+
+    // Imprime o horário inserido
+    printf("O horário inserido é: %d horas %d minutos e %.2f segundos\n", horas, minutos, segundos);
+
+    return 0;
+}
+
+----------------------------------------------------------
+
+PERGUNTA 06
+#include <stdio.h>
+
+#define MAX_LEN 100  // Define um tamanho máximo para os nomes
+
+int main() {
+    char nome[MAX_LEN];
+    char sobrenome[MAX_LEN];
+
+    // Solicita ao usuário para inserir o nome
+    printf("Digite o nome: ");
+    fgets(nome, MAX_LEN, stdin);
+
+    // Remove o caractere de nova linha (\n) se ele estiver presente
+    nome[strcspn(nome, "\n")] = '\0';
+
+    // Solicita ao usuário para inserir o sobrenome
+    printf("Digite o sobrenome: ");
+    fgets(sobrenome, MAX_LEN, stdin);
+
+    // Remove o caractere de nova linha (\n) se ele estiver presente
+    sobrenome[strcspn(sobrenome, "\n")] = '\0';
+
+    // Imprime o nome e sobrenome em uma linha
+    printf("Nome completo: %s %s\n", nome, sobrenome);
+
+    return 0;
+}
+
+-----------------------------------------------------------
+
+PERGUNTA 07
+
+ #include <stdio.h>
+
+#define PI 3.141592653589793  // Definindo π como uma constante
+
+int main() {
+    double raio;    // Variável para armazenar o raio do círculo
+    double area;    // Variável para armazenar a área do círculo
+
+    // Solicita ao usuário para inserir o raio do círculo
+    printf("Digite o raio do círculo: ");
+    scanf("%lf", &raio);
+
+    // Calcula a área da circunferência
+    area = PI * raio * raio;
+
+    // Imprime o resultado
+    printf("A área do círculo com raio %.2lf é: %.4lf\n", raio, area);
+
+    return 0;
+}
+
+-----------------------------------------------------------
+
+PERGUNTA 08
+
+#include <stdio.h>
+
+int main() {
+    int totalSegundos;
+    int dias, horas, minutos, segundos;
+
+    // Solicita ao usuário para inserir o número total de segundos
+    printf("Digite o número de segundos: ");
+    scanf("%d", &totalSegundos);
+
+    // Calcula o número de dias, horas, minutos e segundos
+    dias = totalSegundos / (24 * 3600);  // Número de dias
+    totalSegundos %= (24 * 3600);        // Resto de segundos após calcular os dias
+
+    horas = totalSegundos / 3600;        // Número de horas
+    totalSegundos %= 3600;               // Resto de segundos após calcular as horas
+
+    minutos = totalSegundos / 60;        // Número de minutos
+    segundos = totalSegundos % 60;       // Resto de segundos após calcular os minutos
+
+    // Imprime o resultado
+    printf("%d seg = %d dia(s) %d hora(s) %d minuto(s) e %d segundo(s)\n", 
+           totalSegundos, dias, horas, minutos, segundos);
+
+    return 0;
+}
+
+------------------------------------------------------------
+
+PERGUNTA 09
+
+#include <stdio.h>
+
+int main() {
+    int num1, num2, num3, num4, num5;   // Variáveis para armazenar os 5 números
+    int soma;                          // Variável para armazenar a soma dos números
+    double media;                      // Variável para armazenar a média dos números
+
+    // Solicita ao usuário para inserir 5 números inteiros
+    printf("Digite 5 números inteiros:\n");
+
+    printf("Número 1: ");
+    scanf("%d", &num1);
+
+    printf("Número 2: ");
+    scanf("%d", &num2);
+
+    printf("Número 3: ");
+    scanf("%d", &num3);
+
+    printf("Número 4: ");
+    scanf("%d", &num4);
+
+    printf("Número 5: ");
+    scanf("%d", &num5);
+
+    // Calcula a soma dos 5 números
+    soma = num1 + num2 + num3 + num4 + num5;
+
+    // Calcula a média dos 5 números
+    media = (double)soma / 5;
+
+    // Imprime a média com 2 casas decimais
+    printf("A média dos 5 números é: %.2lf\n", media);
+
+    return 0;
+}
+
+-----------------------------------------------------------
+
+PERGUNTA 10
+
+#include <stdio.h>
+
+int main() {
+    int valor;          // Valor em euros inserido pelo usuário
+    int notas500, notas200, notas100, notas50, notas20, notas10, notas5; // Contadores para as notas
+    int moedas2, moedas1; // Contadores para as moedas
+
+    // Solicita ao usuário para inserir o valor em euros
+    printf("Digite o valor em euros: ");
+    scanf("%d", &valor);
+
+    // Calcula o número de notas e moedas necessárias
+    notas500 = valor / 500;
+    valor %= 500;
+
+    notas200 = valor / 200;
+    valor %= 200;
+
+    notas100 = valor / 100;
+    valor %= 100;
+
+    notas50 = valor / 50;
+    valor %= 50;
+
+    notas20 = valor / 20;
+    valor %= 20;
+
+    notas10 = valor / 10;
+    valor %= 10;
+
+    notas5 = valor / 5;
+    valor %= 5;
+
+    moedas2 = valor / 2;
+    valor %= 2;
+
+    moedas1 = valor; // O resto do valor é a quantidade de moedas de 1 euro
+
+    // Imprime o número de notas e moedas necessárias
+    printf("Notas de 500 euros: %d\n", notas500);
+    printf("Notas de 200 euros: %d\n", notas200);
+    printf("Notas de 100 euros: %d\n", notas100);
+    printf("Notas de 50 euros: %d\n", notas50);
+    printf("Notas de 20 euros: %d\n", notas20);
+    printf("Notas de 10 euros: %d\n", notas10);
+    printf("Notas de 5 euros: %d\n", notas5);
+    printf("Moedas de 2 euros: %d\n", moedas2);
+    printf("Moedas de 1 euro: %d\n", moedas1);
+
+    return 0;
+}
+
+-----------------------------------------------------------
+
+PERGUNTA 11
+
+#include <stdio.h>
+
+int main() {
+    int euros, centavos;          // Variáveis para armazenar euros e centavos
+    int valorCentavos;            // Valor total em centavos
+    int notas500, notas200, notas100, notas50, notas20, notas10, notas5; // Contadores para as notas
+    int moedas2, moedas1, centavos50, centavos20, centavos10, centavos5, centavos2, centavos1; // Contadores para as moedas
+
+    // Solicita ao usuário para inserir o valor em euros e centavos
+    printf("Digite o valor em euros e centavos (ex: 13578 78 para 13578,78 euros): ");
+    scanf("%d %d", &euros, &centavos);
+
+    // Converte o valor total para centavos
+    valorCentavos = euros * 100 + centavos;
+
+    // Calcula o número de notas necessárias
+    notas500 = valorCentavos / 50000; // 1 nota de 500 euros = 50000 centavos
+    valorCentavos %= 50000;
+
+    notas200 = valorCentavos / 20000; // 1 nota de 200 euros = 20000 centavos
+    valorCentavos %= 20000;
+
+    notas100 = valorCentavos / 10000; // 1 nota de 100 euros = 10000 centavos
+    valorCentavos %= 10000;
+
+    notas50 = valorCentavos / 5000;   // 1 nota de 50 euros = 5000 centavos
+    valorCentavos %= 5000;
+
+    notas20 = valorCentavos / 2000;   // 1 nota de 20 euros = 2000 centavos
+    valorCentavos %= 2000;
+
+    notas10 = valorCentavos / 1000;   // 1 nota de 10 euros = 1000 centavos
+    valorCentavos %= 1000;
+
+    notas5 = valorCentavos / 500;     // 1 nota de 5 euros = 500 centavos
+    valorCentavos %= 500;
+
+    // Calcula o número de moedas necessárias
+    moedas2 = valorCentavos / 200;    // 1 moeda de 2 euros = 200 centavos
+    valorCentavos %= 200;
+
+    moedas1 = valorCentavos / 100;    // 1 moeda de 1 euro = 100 centavos
+    valorCentavos %= 100;
+
+    centavos50 = valorCentavos / 50;  // 1 moeda de 50 centavos
+    valorCentavos %= 50;
+
+    centavos20 = valorCentavos / 20;  // 1 moeda de 20 centavos
+    valorCentavos %= 20;
+
+    centavos10 = valorCentavos / 10;  // 1 moeda de 10 centavos
+    valorCentavos %= 10;
+
+    centavos5 = valorCentavos / 5;    // 1 moeda de 5 centavos
+    valorCentavos %= 5;
+
+    centavos2 = valorCentavos / 2;    // 1 moeda de 2 centavos
+    valorCentavos %= 2;
+
+    centavos1 = valorCentavos;        // Moeda de 1 centavo restante
+
+    // Imprime o número de notas e moedas necessárias
+    printf("Notas de 500 euros: %d\n", notas500);
+    printf("Notas de 200 euros: %d\n", notas200);
+    printf("Notas de 100 euros: %d\n", notas100);
+    printf("Notas de 50 euros: %d\n", notas50);
+    printf("Notas de 20 euros: %d\n", notas20);
+    printf("Notas de 10 euros: %d\n", notas10);
+    printf("Notas de 5 euros: %d\n", notas5);
+    printf("Moedas de 2 euros: %d\n", moedas2);
+    printf("Moedas de 1 euro: %d\n", moedas1);
+    printf("Moedas de 50 centavos: %d\n", centavos50);
+    printf("Moedas de 20 centavos: %d\n", centavos20);
+    printf("Moedas de 10 centavos: %d\n", centavos10);
+    printf("Moedas de 5 centavos: %d\n", centavos5);
+    printf("Moedas de 2 centavos: %d\n", centavos2);
+    printf("Moedas de 1 centavo: %d\n", centavos1);
+
+    return 0;
+}
+
+----------------------------------------------------------------------------------
+
+PERGUNTA 12
+
+
+c
+Copiar código
+#include <stdio.h>
+
+int main() {
+    // Declaração de variáveis para tensão e resistores
+    double U, R1, R2; // Tensão e resistores
+    double I, V2;    // Corrente e tensão sobre o resistor R2
+
+    // Solicita ao usuário para inserir os valores
+    printf("Digite a tensão U (em volts): ");
+    scanf("%lf", &U);
+
+    printf("Digite o valor do resistor R1 (em ohms): ");
+    scanf("%lf", &R1);
+
+    printf("Digite o valor do resistor R2 (em ohms): ");
+    scanf("%lf", &R2);
+
+    // Calcula a corrente I
+    I = U / (R1 + R2);
+
+    // Calcula a tensão V2 sobre o resistor R2
+    V2 = I * R2;
+
+    // Imprime os resultados
+    printf("A corrente I que flui pelo circuito é: %.2lf A\n", I);
+    printf("A tensão V2 sobre o resistor R2 é: %.2lf V\n", V2);
+
+    return 0;
+}
+
+-----------------------------------------------------------------------------------
+
+PERGUNTA 13
+
+#include <stdio.h>
+
+int main() {
+    int numeros[6]; // Array para armazenar os 6 números inteiros
+    int i;
+
+    // Solicita ao usuário para inserir 6 números inteiros
+    printf("Digite 6 números inteiros: ");
+    for (i = 0; i < 6; i++) {
+        scanf("%d", &numeros[i]);
+    }
+
+    // Imprime os números em formato de tabela com 3 linhas e 2 colunas
+    printf("%d %d\n", numeros[0], numeros[1]);
+    printf("%d %d\n", numeros[2], numeros[3]);
+    printf("%d %d\n", numeros[4], numeros[5]);
+
+    return 0;
+}
+
+----------------------------------------------------------------------------------------
+
+PERGUNTA 14
+
+#include <stdio.h>
+
+int main() {
+    int numeros[6]; // Array para armazenar os 6 números inteiros
+    int i;
+
+    // Solicita ao usuário para inserir 6 números inteiros
+    printf("Digite 6 números inteiros:\n");
+    for (i = 0; i < 6; i++) {
+        scanf("%d", &numeros[i]);
+    }
+
+    // Imprime a tabela com bordas e divisões
+    printf(" ------------- \n");
+    printf("| %2d | %2d |\n", numeros[0], numeros[1]);
+    printf("|-----------|\n");
+    printf("| %2d | %2d |\n", numeros[2], numeros[3]);
+    printf("|-----------|\n");
+    printf("| %2d | %2d |\n", numeros[4], numeros[5]);
+    printf(" ------------- \n");
+
+    return 0;
+}
+
+------------------------------------------------------------------------------------------
+
+PERGUNTA 15
+
+
+Copiar código
+#include <stdio.h>
+
+int main() {
+    // Array para armazenar 6 números reais
+    double numeros[6];
+    int i;
+
+    // Solicita ao usuário para inserir 6 números reais
+    printf("Digite 6 números reais:\n");
+    for (i = 0; i < 6; i++) {
+        scanf("%lf", &numeros[i]);
+    }
+
+    // Imprime a tabela com bordas e divisões
+    printf(" ------------------- \n");
+    printf("| %6.2f | %6.2f |\n", numeros[0], numeros[1]);
+    printf("|-------------------|\n");
+    printf("| %6.2f | %6.2f |\n", numeros[2], numeros[3]);
+    printf("|-------------------|\n");
+    printf("| %6.2f | %6.2f |\n", numeros[4], numeros[5]);
+    printf(" ------------------- \n");
+
+    return 0;
+}
+
+-------------------------------------------------------------------------------------------
+
+PERGUNTA 15
+
+#include <stdio.h>
+
+int main() {
+    // Declaração de variáveis para armazenar os dados do usuário
+    char nome[50];
+    char sobrenome[50];
+    char rua[50];
+    int numero;
+    char codigo_postal[10];
+    char cidade[50];
+
+    // Solicita ao usuário para inserir os dados
+    printf("Digite o nome: ");
+    fgets(nome, sizeof(nome), stdin); // Lê o nome (incluindo espaços)
+
+    printf("Digite o sobrenome: ");
+    fgets(sobrenome, sizeof(sobrenome), stdin); // Lê o sobrenome (incluindo espaços)
+
+    printf("Digite o nome da rua: ");
+    fgets(rua, sizeof(rua), stdin); // Lê o nome da rua (incluindo espaços)
+
+    printf("Digite o número da residência: ");
+    scanf("%d", &numero);
+    getchar(); // Limpa o buffer de entrada
+
+    printf("Digite o código postal: ");
+    fgets(codigo_postal, sizeof(codigo_postal), stdin); // Lê o código postal (incluindo espaços)
+
+    printf("Digite o nome da cidade: ");
+    fgets(cidade, sizeof(cidade), stdin); // Lê o nome da cidade (incluindo espaços)
+
+    // Remove possíveis caracteres de nova linha (\n) dos inputs
+    nome[strcspn(nome, "\n")] = 0;
+    sobrenome[strcspn(sobrenome, "\n")] = 0;
+    rua[strcspn(rua, "\n")] = 0;
+    codigo_postal[strcspn(codigo_postal, "\n")] = 0;
+    cidade[strcspn(cidade, "\n")] = 0;
+
+    // Exibe os dados no formato solicitado
+    printf("\n%s %s\n", sobrenome, nome);
+    printf("%s %d\n", rua, numero);
+    printf("%s %s\n", codigo_postal, cidade);
+
+    return 0;
+}
+
+-----------------------------------------------------------------------------------------------
+
+PERGUNTA 16
+
+#include <stdio.h>
+
+int main() {
+    // Declaração das variáveis
+    int numero_fatura;
+    int quantidade_produtos;
+    float preco_unidade;
+    float total;
+
+    // Solicita ao usuário os dados
+    printf("Digite o número da fatura: ");
+    scanf("%d", &numero_fatura);
+
+    printf("Digite o número de produtos pedidos: ");
+    scanf("%d", &quantidade_produtos);
+
+    printf("Digite o preço por unidade: ");
+    scanf("%f", &preco_unidade);
+
+    // Calcula o valor total
+    total = quantidade_produtos * preco_unidade;
+
+    // Imprime os dados formatados
+    printf("\nNÚMERO DA FATURA PREÇO/UNIDADE TOTAL\n");
+    printf("%d %d %.2f %.2f\n", numero_fatura, quantidade_produtos, preco_unidade, total);
+
+    return 0;
+}
+
+==============================================================================================
+
+#include <stdio.h>
+
+int main() {
+    int numero;
+    int unidade, dezena, centena;
+
+    // Solicita ao usuário o número
+    printf("Digite um número inteiro com 3 dígitos: ");
+    scanf("%d", &numero);
+
+    // Separa as unidades, dezenas e centenas
+    unidade = numero % 10;
+    dezena = (numero / 10) % 10;
+    centena = (numero / 100) % 10;
+
+    // Imprime o número ao contrário
+    printf("O número impresso ao contrário é: %d%d%d\n", unidade, dezena, centena);
+
+    return 0;
+}
+
+---------------------------------------------------------------------------------------------
+
+PERGUNTA 17
+
+#include <stdio.h>
+
+// Função para calcular a data da Páscoa
+void calcularPascoa(int ano, int *dia, int *mes) {
+    // Fórmulas de cálculo de acordo com o algoritmo de Meeus/Jones/Butcher
+    int a = ano % 19;
+    int b = ano / 100;
+    int c = ano % 100;
+    int d = b / 4;
+    int e = b % 4;
+    int f = (b + 8) / 25;
+    int g = (19 * a + b - d - f + 15) % 30;
+    int h = c / 4;
+    int i = c % 4;
+    int k = (32 + 2 * e + 2 * h - g - i) % 7;
+    int l = (a + 11 * g + 22 * k) / 451;
+    int m = (g + k - 7 * l + 114) % 31;
+    
+    *dia = m + 1;
+    *mes = (g + k - 7 * l + 114) / 31;
+
+    // Adiar a data da Páscoa por uma semana se cair no domingo
+    if (*dia == 1 && *mes == 4) {
+        *dia = 8;
+        *mes = 4;
+    }
+}
+
+int main() {
+    int ano, dia, mes;
+
+    // Solicita o ano ao usuário
+    printf("Digite o ano: ");
+    scanf("%d", &ano);
+
+    // Calcula a data da Páscoa
+    calcularPascoa(ano, &dia, &mes);
+
+    // Imprime a data da Páscoa
+    printf("A data da Páscoa em %d é: %02d/%02d\n", ano, dia, mes);
+
+    return 0;
+}
+
+
+
+
+
+
+

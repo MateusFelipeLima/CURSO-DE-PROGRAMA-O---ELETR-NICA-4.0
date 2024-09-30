@@ -1,0 +1,562 @@
+PERGUNTA 01
+
+#include <stdio.h>
+
+#define SIZE 10
+
+// Função para preencher a matriz
+void FillMatrix(int matrix[SIZE][SIZE]) {
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            matrix[i][j] = (i + 1) * (j + 1);
+        }
+    }
+}
+
+// Função para imprimir a matriz
+void PrintMatrix(int matrix[SIZE][SIZE]) {
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            printf("%4d ", matrix[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+int main(void) {
+    int matrix[SIZE][SIZE];
+
+    // Preenche a matriz
+    FillMatrix(matrix);
+
+    // Imprime a matriz
+    PrintMatrix(matrix);
+
+    return 0;
+}
+
+
+----------------------------------------------------------------------------------------------
+
+PERGUNTA 02
+
+#include <stdio.h>
+
+#define ROWS 3
+#define COLS 10
+
+// Função para ler uma linha de inteiros
+void ReadRow(int matrix[ROWS][COLS], int row) {
+    for (int i = 0; i < COLS; i++) {
+        scanf("%d", &matrix[row][i]);
+    }
+}
+
+// Função para calcular a soma das duas primeiras linhas e armazenar na terceira linha
+void Calculate(int matrix[ROWS][COLS]) {
+    for (int i = 0; i < COLS; i++) {
+        matrix[2][i] = matrix[0][i] + matrix[1][i];
+    }
+}
+
+// Função para imprimir a matriz
+void PrintMatrix(int matrix[ROWS][COLS]) {
+    printf("Tabela:\n");
+    for (int i = 0; i < ROWS; i++) {
+        for (int j = 0; j < COLS; j++) {
+            printf("%2d ", matrix[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+int main(void) {
+    int matrix[ROWS][COLS];
+
+    printf("Entre 2 x 10 inteiros:\n");
+    ReadRow(matrix, 0); // Lê a primeira linha
+    ReadRow(matrix, 1); // Lê a segunda linha
+
+    Calculate(matrix); // Calcula a soma na terceira linha
+
+    PrintMatrix(matrix); // Imprime a matriz
+
+    return 0;
+}
+
+
+--------------------------------------------------------------------------------------------
+
+PERGUNTA 03
+
+#include <stdio.h>
+
+#define MAX_NUMBERS 10
+#define TERMINATION_VALUE 999
+
+// Função para adicionar ou atualizar a contagem de um número na matriz
+void UpdateCount(int matrix[MAX_NUMBERS][2], int num, int *size) {
+    for (int i = 0; i < *size; i++) {
+        if (matrix[i][0] == num) {
+            matrix[i][1]++; // Incrementa a contagem
+            return;
+        }
+    }
+    // Se o número não estiver na matriz, adiciona-o
+    if (*size < MAX_NUMBERS) {
+        matrix[*size][0] = num;
+        matrix[*size][1] = 1;
+        (*size)++;
+    }
+}
+
+// Função para ler a lista de inteiros e preencher a matriz
+void ReadList(int matrix[MAX_NUMBERS][2], int *size) {
+    int num;
+    printf("Entre uma lista de inteiros (terminar com 999):\n");
+    while (1) {
+        scanf("%d", &num);
+        if (num == TERMINATION_VALUE) {
+            break;
+        }
+        UpdateCount(matrix, num, size);
+    }
+}
+
+// Função para imprimir os números diferentes e suas ocorrências
+void PrintCounts(int matrix[MAX_NUMBERS][2], int size) {
+    printf("Os números diferentes nesta lista são:\n");
+    for (int i = 0; i < size; i++) {
+        printf("%d %d\n", matrix[i][0], matrix[i][1]);
+    }
+}
+
+int main(void) {
+    int matrix[MAX_NUMBERS][2] = {0}; // Matriz para armazenar números e contagens
+    int size = 0; // Número de números diferentes encontrados
+
+    ReadList(matrix, &size);
+    PrintCounts(matrix, size);
+
+    return 0;
+}
+
+
+-----------------------------------------------------------------------------------------------
+
+PERGUNTA 03 
+
+#include <stdio.h>
+
+#define MAX_SIZE 10
+
+// Função para ler a dimensão da matriz
+int ReadDimension() {
+    int dimension;
+    do {
+        printf("Digite a dimensão da matriz (1 a %d): ", MAX_SIZE);
+        scanf("%d", &dimension);
+    } while (dimension < 1 || dimension > MAX_SIZE);
+    return dimension;
+}
+
+// Função para ler os elementos da matriz
+void ReadMatrix(int matrix[MAX_SIZE][MAX_SIZE], int dimension) {
+    printf("Digite os elementos da matriz:\n");
+    for (int i = 0; i < dimension; i++) {
+        for (int j = 0; j < dimension; j++) {
+            printf("Elemento [%d][%d]: ", i, j);
+            scanf("%d", &matrix[i][j]);
+        }
+    }
+}
+
+// Função para calcular a matriz transposta
+void TransposeMatrix(int matrix[MAX_SIZE][MAX_SIZE], int transposed[MAX_SIZE][MAX_SIZE], int dimension) {
+    for (int i = 0; i < dimension; i++) {
+        for (int j = 0; j < dimension; j++) {
+            transposed[j][i] = matrix[i][j];
+        }
+    }
+}
+
+// Função para imprimir uma matriz
+void PrintMatrix(int matrix[MAX_SIZE][MAX_SIZE], int dimension, const char *label) {
+    printf("%s:\n", label);
+    for (int i = 0; i < dimension; i++) {
+        for (int j = 0; j < dimension; j++) {
+            printf("%4d ", matrix[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+int main() {
+    int dimension = ReadDimension();
+    int matrix[MAX_SIZE][MAX_SIZE];
+    int transposed[MAX_SIZE][MAX_SIZE];
+
+    ReadMatrix(matrix, dimension);
+    TransposeMatrix(matrix, transposed, dimension);
+
+    PrintMatrix(matrix, dimension, "Matriz Original");
+    PrintMatrix(transposed, dimension, "Matriz Transposta");
+
+    return 0;
+}
+
+
+--------------------------------------------------------------------------------------------------
+
+PERGUNTA 04
+
+#include <stdio.h>
+
+#define SIZE 10
+#define MAX_LENGTH 100
+
+// Função para ler os 10 nomes
+void ReadNames(char names[][MAX_LENGTH], int size) {
+    printf("Digite %d nomes:\n", size);
+    for (int i = 0; i < size; i++) {
+        printf("Nome %d: ", i + 1);
+        fgets(names[i], MAX_LENGTH, stdin);
+
+        // Remove o caractere de nova linha, se houver
+        size_t len = strlen(names[i]);
+        if (len > 0 && names[i][len - 1] == '\n') {
+            names[i][len - 1] = '\0';
+        }
+    }
+}
+
+// Função para imprimir os nomes
+void PrintNames(char names[][MAX_LENGTH], int size) {
+    printf("\nNomes digitados:\n");
+    for (int i = 0; i < size; i++) {
+        printf("Nome %d: %s\n", i + 1, names[i]);
+    }
+}
+
+int main() {
+    char names[SIZE][MAX_LENGTH];
+
+    // Ler os nomes
+    ReadNames(names, SIZE);
+
+    // Imprimir os nomes
+    PrintNames(names, SIZE);
+
+    return 0;
+}
+
+
+------------------------------------------------------------------------------------------------
+
+PERGUNTA 05
+
+#include <stdio.h>
+#include <string.h>
+
+#define SIZE 10
+#define MAX_LENGTH 100
+
+// Função para ler os nomes até "fim" ou o máximo de 10 nomes
+void ReadNames(char names[][MAX_LENGTH], int *count) {
+    int index = 0;
+    char buffer[MAX_LENGTH];
+
+    printf("Digite até 10 nomes (digite 'fim' para terminar):\n");
+    while (index < SIZE) {
+        printf("Nome %d: ", index + 1);
+        fgets(buffer, MAX_LENGTH, stdin);
+
+        // Remove o caractere de nova linha, se houver
+        size_t len = strlen(buffer);
+        if (len > 0 && buffer[len - 1] == '\n') {
+            buffer[len - 1] = '\0';
+        }
+
+        // Verifica se o usuário digitou "fim"
+        if (strcmp(buffer, "fim") == 0) {
+            break;
+        }
+
+        // Armazena o nome no array
+        strcpy(names[index], buffer);
+        index++;
+    }
+
+    *count = index; // Atualiza o número de nomes lidos
+}
+
+// Função para imprimir os nomes
+void PrintNames(char names[][MAX_LENGTH], int count) {
+    printf("\nNomes digitados:\n");
+    for (int i = 0; i < count; i++) {
+        printf("Nome %d: %s\n", i + 1, names[i]);
+    }
+}
+
+int main() {
+    char names[SIZE][MAX_LENGTH];
+    int count;
+
+    // Ler os nomes
+    ReadNames(names, &count);
+
+    // Imprimir os nomes
+    PrintNames(names, count);
+
+    return 0;
+}
+
+
+------------------------------------------------------------------------------------------------
+
+PERGUNTA 06 
+
+#include <stdio.h>
+#include <ctype.h> // Para a função toupper()
+
+// Array de códigos Morse para letras A-Z
+const char *morse[] = {".-", "-...", "-.-.", "-..", ".", "..-.",
+                       "--.", "....", "..", ".---", "-.-", ".-..", "--",
+                       "-.", "---", ".--.", "--.-", ".-.", "...", "-",
+                       "..-", "...-", ".--", "-..-", "-.--", "--..", NULL};
+
+void PrintMorse(char letter) {
+    // Converte a letra para maiúscula para garantir que o índice funcione
+    letter = toupper(letter);
+
+    // Verifica se a letra está dentro do intervalo de A-Z
+    if (letter >= 'A' && letter <= 'Z') {
+        // Calcula o índice correspondente à letra
+        int index = letter - 'A';
+        // Imprime o código Morse
+        printf("Código Morse correspondente: %s\n", morse[index]);
+    } else {
+        printf("Caractere inválido. Por favor, insira uma letra de A a Z.\n");
+    }
+}
+
+int main() {
+    char letter;
+
+    // Lê a letra do usuário
+    printf("Entre uma letra: ");
+    scanf(" %c", &letter); // O espaço antes de %c é para ignorar espaços em branco
+
+    // Chama a função para imprimir o código Morse
+    PrintMorse(letter);
+
+    return 0;
+}
+
+
+-----------------------------------------------------------------------------------------------
+
+PERGUNTA 07
+
+#include <stdio.h>
+
+#define MAX_PECAS 20
+#define MAX_TESTES 10
+
+// Função para ler um número inteiro válido
+int ReadNumber(const char *prompt, int min, int max) {
+    int num;
+    do {
+        printf("%s", prompt);
+        scanf("%d", &num);
+    } while (num < min || num > max);
+    return num;
+}
+
+// Função para ler todos os dados dos testes
+void ReadTestResults(int results[MAX_PECAS][MAX_TESTES], int N, int M) {
+    int partNumber, testNumber, result;
+    
+    printf("Digite os resultados dos testes (termine com 0 0 0):\n");
+    while (1) {
+        scanf("%d %d %d", &partNumber, &testNumber, &result);
+        if (partNumber == 0 && testNumber == 0 && result == 0)
+            break;
+        if (partNumber >= 1 && partNumber <= N && testNumber >= 1 && testNumber <= M) {
+            results[partNumber - 1][testNumber - 1] = result;
+        }
+    }
+}
+
+// Função para imprimir os resultados por peça
+void PrintResultsByPart(int results[MAX_PECAS][MAX_TESTES], int N, int M) {
+    int i, j;
+    printf("Resultados por peça:\n");
+    printf(" número da peça ");
+    for (j = 0; j < M; j++)
+        printf(" teste %d ", j + 1);
+    printf(" avaliação\n");
+
+    for (i = 0; i < N; i++) {
+        int smallErrors = 0, fatalErrors = 0;
+        printf("%d ", i + 1);
+        for (j = 0; j < M; j++) {
+            int result = results[i][j];
+            if (result == 1)
+                smallErrors++;
+            else if (result == 3)
+                fatalErrors++;
+            printf(" %d ", result);
+        }
+        if (fatalErrors > 0 || smallErrors >= 3)
+            printf(" rejeitado\n");
+        else
+            printf(" aceito\n");
+    }
+}
+
+// Função para imprimir os resultados por teste
+void PrintResultsByTest(int results[MAX_PECAS][MAX_TESTES], int N, int M) {
+    int i, j;
+    printf("Resultados por teste:\n");
+    printf(" teste nenhuma pequena fatal\n");
+    
+    for (j = 0; j < M; j++) {
+        int none = 0, small = 0, fatal = 0;
+        for (i = 0; i < N; i++) {
+            int result = results[i][j];
+            if (result == 0)
+                none++;
+            else if (result == 1)
+                small++;
+            else if (result == 3)
+                fatal++;
+        }
+        printf("%d %d %d %d\n", j + 1, none, small, fatal);
+    }
+}
+
+int main() {
+    int results[MAX_PECAS][MAX_TESTES] = {0}; // Inicializa a matriz com 0
+    int N, M;
+
+    // Lê o número de peças e testes
+    N = ReadNumber("Quantas peças você testou? ", 1, MAX_PECAS);
+    M = ReadNumber("Quantos testes você executou? ", 1, MAX_TESTES);
+
+    // Lê os resultados dos testes
+    ReadTestResults(results, N, M);
+
+    // Imprime os resultados por peça
+    PrintResultsByPart(results, N, M);
+
+    // Imprime os resultados por teste
+    PrintResultsByTest(results, N, M);
+
+    return 0;
+}
+
+
+-----------------------------------------------------------------------------------------
+
+PERGUNTA 08
+
+#include <stdio.h>
+#include <string.h>
+
+#define FILAS 3
+#define ASSENTOS 4
+#define TAM_STRING 11  // 10 caracteres + 1 para o terminador nulo
+
+// Função para inicializar as reservas
+void InicializaReservas(char reservas[FILAS][ASSENTOS][TAM_STRING]) {
+    for (int i = 0; i < FILAS; i++) {
+        for (int j = 0; j < ASSENTOS; j++) {
+            strcpy(reservas[i][j], ".");  // Assentos vazios
+        }
+    }
+}
+
+// Função para imprimir as reservas atuais
+void ImprimeReservas(char reservas[FILAS][ASSENTOS][TAM_STRING]) {
+    printf("As reservas atuais são:\n");
+    for (int i = 0; i < FILAS; i++) {
+        for (int j = 0; j < ASSENTOS; j++) {
+            printf("%s ", reservas[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+// Função para ler as entradas e verificar a disponibilidade do assento
+void LerReservas(char reservas[FILAS][ASSENTOS][TAM_STRING]) {
+    char nome[TAM_STRING];
+    int fila, assento;
+
+    while (1) {
+        printf("Digite uma nova reserva de assento (nome fila assento ou 'fim' para encerrar): ");
+        scanf("%s", nome);
+
+        if (strcmp(nome, "fim") == 0) {
+            break;
+        }
+
+        fila = nome[0] - '0';  // Convertendo o primeiro caractere para inteiro
+        assento = nome[1] - '0';  // Convertendo o segundo caractere para inteiro
+        
+        // Ajuste os índices para 0 base
+        fila -= 1;
+        assento -= 1;
+
+        if (fila < 0 || fila >= FILAS || assento < 0 || assento >= ASSENTOS) {
+            printf("Número da fila ou assento inválido.\n");
+            continue;
+        }
+
+        if (strcmp(reservas[fila][assento], ".") == 0) {
+            printf("Digite o nome do cliente: ");
+            scanf("%s", reservas[fila][assento]);
+        } else {
+            printf("Assento ocupado.\n");
+        }
+        
+        ImprimeReservas(reservas);
+
+        // Verifica se todos os assentos estão ocupados
+        int todosOcupados = 1;
+        for (int i = 0; i < FILAS; i++) {
+            for (int j = 0; j < ASSENTOS; j++) {
+                if (strcmp(reservas[i][j], ".") == 0) {
+                    todosOcupados = 0;
+                    break;
+                }
+            }
+            if (!todosOcupados) break;
+        }
+
+        if (todosOcupados) {
+            printf("Todos os assentos estão ocupados.\n");
+            break;
+        }
+    }
+
+    // Imprime as reservas finais
+    printf("As reservas finais de assentos são:\n");
+    ImprimeReservas(reservas);
+}
+
+int main() {
+    char reservas[FILAS][ASSENTOS][TAM_STRING];
+
+    InicializaReservas(reservas);
+    printf("Bem-vindo. O teatro tem %d filas de %d assentos cada.\n", FILAS, ASSENTOS);
+    ImprimeReservas(reservas);
+    LerReservas(reservas);
+
+    return 0;
+}
+
+
+
+
+

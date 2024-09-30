@@ -1,0 +1,609 @@
+PERGUNTA 01
+
+#include <stdio.h>
+
+int main() {
+    // Variável única para controlar a sequência
+    int numero = -3;
+
+    // Loop para imprimir números de -3 a 25, com incremento de 2
+    while (numero <= 25) {
+        // Imprime o número atual
+        printf("%d", numero);
+
+        // Se não for o último número, imprime uma vírgula
+        if (numero < 25) {
+            printf(", ");
+        }
+
+        // Incrementa o número
+        numero += 2;
+    }
+
+    // Nova linha ao final da impressão
+    printf("\n");
+
+    return 0;
+}
+
+-------------------------------------------------------------------------------
+
+PERGUNTA 02
+
+#include <stdio.h>
+
+int main() {
+    // Declaração da variável única
+    int numero;
+
+    // Inicialização da variável com o primeiro número da sequência
+    numero = -3;
+
+    // Loop para imprimir os números de -3 a 25, com incremento de 2
+    while (numero <= 25) {
+        // Imprime o número atual
+        printf("%d", numero);
+
+        // Incrementa o número
+        numero += 2;
+
+        // Se o número ainda não é o último, imprime uma vírgula e um espaço
+        if (numero <= 25) {
+            printf(", ");
+        }
+    }
+
+    // Nova linha ao final da impressão
+    printf("\n");
+
+    return 0;
+}
+
+----------------------------------------------------------------------------------
+
+PERGUNTA 03
+
+#include <stdio.h>
+
+int main() {
+    int n, i;
+    int soma = 0;
+
+    // Solicita ao usuário que insira um número inteiro
+    printf("Digite um número inteiro: ");
+    scanf("%d", &n);
+
+    // Calcula a soma dos números de 1 até n
+    for (i = 1; i <= n; i++) {
+        soma += i;
+    }
+
+    // Imprime a soma
+    printf("A soma dos números de 1 até %d é: %d\n", n, soma);
+
+    return 0;
+}
+
+------------------------------------------------------------------------------------
+
+PERGUNTA 04
+
+#include <stdio.h>
+
+int main() {
+    // Definir o caractere para o retângulo preto
+    char retanguloPreto = 219;
+
+    // Definir o número de linhas e colunas
+    int numLinhas = 22;
+    int numColunas = 40;
+
+    // Loop para imprimir as linhas
+    for (int i = 0; i < numLinhas; i++) {
+        // Loop para imprimir os retângulos em cada linha
+        for (int j = 0; j < numColunas; j++) {
+            printf("%c", retanguloPreto);
+        }
+        // Nova linha após imprimir todos os retângulos em uma linha
+        printf("\n");
+    }
+
+    return 0;
+}
+
+---------------------------------------------------------------------------------------
+
+PERGUNTA 05
+
+#include <stdio.h>
+
+int main() {
+    int numeroInicial, numeroAtual, soma = 0;
+
+    // Solicita ao usuário que insira o número inicial
+    printf("Digite um número inteiro: ");
+    scanf("%d", &numeroInicial);
+
+    // Continuar solicitando números até que a soma seja igual ou exceda o número inicial
+    while (soma < numeroInicial) {
+        // Solicita ao usuário que insira um número
+        printf("Digite um número inteiro: ");
+        scanf("%d", &numeroAtual);
+
+        // Adiciona o número atual à soma
+        soma += numeroAtual;
+    }
+
+    // Exibe a soma total
+    printf("A soma dos números inseridos é: %d\n", soma);
+
+    return 0;
+}
+
+----------------------------------------------------------------------------------------
+
+PERGUNTA 06
+
+#include <stdio.h>
+
+int main() {
+    int numero;
+
+    // Solicita ao usuário que insira um número inteiro dentro do intervalo
+    printf("Digite um número inteiro no intervalo [-2, 4.5[: ");
+    scanf("%d", &numero);
+
+    // Verifica se o número está no intervalo válido
+    while (numero < -2 || numero >= 4) {
+        // Se o número estiver fora do intervalo, exibe uma mensagem de erro
+        printf("Número inválido. Digite um número inteiro no intervalo [-2, 4.5[: ");
+        scanf("%d", &numero);
+    }
+
+    // Exibe o número válido inserido
+    printf("Número válido inserido: %d\n", numero);
+
+    return 0;
+}
+
+-------------------------------------------------------------------------------------------
+
+PERGUNTA 07
+
+#include <stdio.h>
+
+int main() {
+    int numero;
+
+    while (1) {
+        // Solicita ao usuário que insira um número no intervalo [-30, 30]
+        printf("Digite um número inteiro no intervalo [-30, 30] (ou 0 para sair): ");
+        scanf("%d", &numero);
+
+        // Verifica se o número está dentro do intervalo permitido
+        if (numero < -30 || numero > 30) {
+            printf("Número fora do intervalo. Tente novamente.\n");
+            continue;
+        }
+
+        // Se o número for 0, termina o programa
+        if (numero == 0) {
+            break;
+        }
+
+        // Inicializa o gráfico de barras
+        char barra[61];
+        for (int i = 0; i < 61; i++) {
+            barra[i] = '.';
+        }
+
+        // Posiciona a linha central para os gráficos
+        int meio = 30; // Posição central do gráfico
+
+        if (numero < 0) {
+            // Desenha a barra para números negativos
+            for (int i = meio; i >= meio + numero; i--) {
+                barra[i] = '*';
+            }
+        } else {
+            // Desenha a barra para números positivos
+            for (int i = meio; i <= meio + numero; i++) {
+                barra[i] = '*';
+            }
+        }
+
+        // Imprime o gráfico de barras
+        printf("%s\n", barra);
+
+        // Imprime o número inserido
+        printf("Número inserido: %d\n", numero);
+    }
+
+    return 0;
+}
+
+--------------------------------------------------------------------------------------------
+
+PERGUNTA 08
+
+#include <stdio.h>
+
+int main() {
+    int i;
+    float num, soma = 0.0, media;
+
+    // Loop para ler 10 números
+    for (i = 0; i < 10; i++) {
+        printf("Digite o %dº número: ", i + 1);
+        scanf("%f", &num);  // Lê o número inserido
+        soma += num;        // Acumula a soma dos números
+    }
+
+    // Calcula a média
+    media = soma / 10;
+
+    // Exibe a soma e a média
+    printf("A soma dos 10 números é: %.2f\n", soma);
+    printf("A média dos 10 números é: %.2f\n", media);
+
+    return 0;
+}
+
+--------------------------------------------------------------------------------------------
+
+PERGUNTA 09
+
+#include <stdio.h>
+
+int main() {
+    int num;
+    int soma = 0;
+    int contador = 0;
+
+    printf("Digite números inteiros (999 para encerrar):\n");
+
+    while (1) {
+        scanf("%d", &num); // Lê um número inteiro do usuário
+
+        if (num == 999) { // Condição de parada
+            break;
+        }
+
+        soma += num;     // Adiciona o número à soma
+        contador++;      // Incrementa o contador de números
+    }
+
+    if (contador > 0) {
+        float media = (float)soma / contador; // Calcula a média
+        printf("A média dos números inseridos é: %.2f\n", media);
+    } else {
+        printf("Nenhum número válido foi inserido.\n");
+    }
+
+    return 0;
+}
+
+-----------------------------------------------------------------------------------------
+
+PERGUNTA 10
+
+#include <stdio.h>
+
+// Função para calcular o fatorial de um número
+unsigned long long fatorial(int n) {
+    unsigned long long resultado = 1;
+    for (int i = 1; i <= n; i++) {
+        resultado *= i;
+    }
+    return resultado;
+}
+
+int main() {
+    int n;
+
+    // Solicita ao usuário para inserir um número natural
+    printf("Digite um número natural: ");
+    scanf("%d", &n);
+
+    // Verifica se o número é não-negativo
+    if (n < 0) {
+        printf("O número deve ser um número natural (não-negativo).\n");
+        return 1; // Código de erro
+    }
+
+    // Calcula o fatorial
+    unsigned long long resultado = fatorial(n);
+
+    // Imprime o resultado
+    printf("O fatorial de %d é: %llu\n", n, resultado);
+
+    return 0;
+}
+
+-----------------------------------------------------------------------------------------------
+
+PERGUNTA 11
+
+#include <stdio.h>
+
+// Função para calcular o fatorial de um número não-negativo
+unsigned long long fatorial(int n) {
+    unsigned long long resultado = 1;
+    for (int i = 1; i <= n; i++) {
+        resultado *= i;
+    }
+    return resultado;
+}
+
+int main() {
+    int n;
+
+    // Solicita ao usuário para inserir um número inteiro
+    printf("Digite um número inteiro: ");
+    scanf("%d", &n);
+include <stdio.h>
+
+int main() {
+    int i;                   // Variável para controlar o loop
+    int num;                 // Variável para armazenar o número inserido
+    int min;                 // Variável para armazenar o valor mínimo
+    int max;                 // Variável para armazenar o valor máximo
+
+    // Inicializa min e max com o valor máximo e mínimo possível para um int
+    min = 2147483647;        // Máximo valor para int
+    max = -2147483648;       // Mínimo valor para int
+
+    // Solicita ao usuário para inserir 10 números
+    printf("Digite 10 números inteiros:\n");
+
+    for (i = 0; i < 10; i++) {
+        scanf("%d", &num);
+
+        // Atualiza o valor mínimo e máximo conforme necessário
+        if (num < min) {
+            min = num;
+        }
+        if (num > max) {
+            max = num;
+        }
+    }
+
+    // Imprime o valor mínimo e máximo
+    printf("O valor mínimo é: %d\n", min);
+    printf("O valor máximo é: %d\n", max);
+
+    return 0;
+}
+    // Verifica se o número é não-negativo
+    if (n < 0) {
+        printf("O cálculo do fatorial não é definido para números negativos.\n");
+    } else {
+        // Calcula o fatorial
+        unsigned long long resultado = fatorial(n);
+        // Imprime o resultado
+        printf("O fatorial de %d é: %llu\n", n, resultado);
+    }
+
+    return 0;
+}
+
+-----------------------------------------------------------------------------------------------
+
+PERGUNTA 12
+
+include <stdio.h>
+
+int main() {
+    int i;                   // Variável para controlar o loop
+    int num;                 // Variável para armazenar o número inserido
+    int min;                 // Variável para armazenar o valor mínimo
+    int max;                 // Variável para armazenar o valor máximo
+
+    // Inicializa min e max com o valor máximo e mínimo possível para um int
+    min = 2147483647;        // Máximo valor para int
+    max = -2147483648;       // Mínimo valor para int
+
+    // Solicita ao usuário para inserir 10 números
+    printf("Digite 10 números inteiros:\n");
+
+    for (i = 0; i < 10; i++) {
+        scanf("%d", &num);
+
+        // Atualiza o valor mínimo e máximo conforme necessário
+        if (num < min) {
+            min = num;
+        }
+        if (num > max) {
+            max = num;
+        }
+    }
+
+    // Imprime o valor mínimo e máximo
+    printf("O valor mínimo é: %d\n", min);
+    printf("O valor máximo é: %d\n", max);
+
+    return 0;
+}
+
+---------------------------------------------------------------------------------------
+
+PERGUNTA 11
+
+#include <stdio.h>
+
+// Função para calcular o MDC usando o algoritmo de Euclides com diferenças
+int calcularMDC(int a, int b) {
+    printf("Passos intermediários:\n");
+    
+    // Verifica se a é menor que b e troca se necessário
+    if (a < b) {
+        int temp = a;
+        a = b;
+        b = temp;
+    }
+    
+    // Algoritmo de Euclides usando diferenças
+    while (a != b) {
+        if (a > b) {
+            a = a - b;  // Substitui o maior número pela diferença
+        } else {
+            b = b - a;  // Substitui o maior número pela diferença
+        }
+        printf("a = %d, b = %d\n", a, b);
+    }
+    
+    return a;  // Quando a == b, ambos são o MDC
+}
+
+int main() {
+    int num1, num2;
+    
+    // Solicita ao usuário para inserir dois inteiros positivos
+    printf("Digite dois inteiros positivos:\n");
+    scanf("%d %d", &num1, &num2);
+    
+    // Verifica se os números inseridos são positivos
+    if (num1 <= 0 || num2 <= 0) {
+        printf("Por favor, insira inteiros positivos.\n");
+        return 1;
+    }
+    
+    // Calcula e imprime o MDC
+    int mdc = calcularMDC(num1, num2);
+    printf("O Máximo Divisor Comum (MDC) é: %d\n", mdc);
+    
+    return 0;
+}
+
+
+---------------------------------------------------------------------------------------
+
+pergunta 12
+
+#include <stdio.h>
+
+// Função para desenhar um quadrado de tamanho `tamanho` usando o caractere ASCII 219
+void desenharQuadrado(int tamanho) {
+    for (int i = 0; i < tamanho; i++) {
+        for (int j = 0; j < tamanho; j++) {
+            putchar(219); // Caractere ASCII 219
+        }
+        putchar('\n');
+    }
+}
+
+// Função principal do programa
+int main() {
+    int tamanho;
+    char continuar;
+
+    do {
+        // Solicita ao usuário o tamanho do quadrado superior
+        printf("Digite o tamanho do quadrado superior (um inteiro positivo): ");
+        scanf("%d", &tamanho);
+
+        // Verifica se o tamanho é positivo
+        if (tamanho <= 0) {
+            printf("O tamanho deve ser um número positivo.\n");
+            return 1;
+        }
+
+        // Desenha a torre invertida
+        printf("Desenhando a torre:\n");
+        while (tamanho > 0) {
+            desenharQuadrado(tamanho);
+            printf("\n"); // Espaço entre os quadrados
+
+            tamanho -= 2; // Diminuir o tamanho do quadrado para o próximo nível
+        }
+
+        // Pergunta ao usuário se deseja desenhar uma nova torre
+        printf("Deseja desenhar uma nova torre? (Digite 'n' para sair): ");
+        scanf(" %c", &continuar); // O espaço antes de %c ignora qualquer caractere de nova linha remanescente
+
+    } while (continuar != 'n');
+
+    printf("Programa encerrado.\n");
+    return 0;
+}
+
+------------------------------------------------------------------------------------------
+
+PERGUNTA 13
+
+#include <stdio.h>
+
+int main() {
+    int numeros[10];   // Array para armazenar os 10 números
+    int i;             // Contador para o loop
+    int max;           // Variável para armazenar o valor máximo
+    int cont_max = 0;  // Contador para o número de vezes que o valor máximo é inserido
+
+    // Solicita ao usuário que insira 10 números
+    printf("Digite 10 números inteiros:\n");
+    for (i = 0; i < 10; i++) {
+        printf("Número %d: ", i + 1);
+        scanf("%d", &numeros[i]);
+    }
+
+    // Inicializa max com o primeiro número
+    max = numeros[0];
+    cont_max = 1;
+
+    // Determina o valor máximo e conta quantas vezes ele ocorre
+    for (i = 1; i < 10; i++) {
+        if (numeros[i] > max) {
+            max = numeros[i];
+            cont_max = 1;
+        } else if (numeros[i] == max) {
+            cont_max++;
+        }
+    }
+
+    // Imprime o resultado
+    printf("O valor máximo é %d.\n", max);
+    printf("O valor máximo foi inserido %d vez(es).\n", cont_max);
+
+    return 0;
+}
+
+------------------------------------------------------------------------------------------------
+
+PERGUNTA 14
+
+#include <stdio.h>
+
+int main() {
+    int targetSum; // Número alvo fornecido pelo usuário
+    int start, end, sum; // Variáveis para os intervalos e soma
+
+    // Solicita ao usuário que insira um número inteiro positivo
+    printf("Digite um número inteiro positivo: ");
+    scanf("%d", &targetSum);
+
+    // Verifica se o número fornecido é positivo
+    if (targetSum <= 0) {
+        printf("O número deve ser positivo.\n");
+        return 1;
+    }
+
+    // Encontra todas as linhas de inteiros consecutivos cuja soma é igual ao número fornecido
+    for (start = 1; start <= targetSum / 2; start++) {
+        sum = 0;
+        for (end = start; sum < targetSum; end++) {
+            sum += end;
+            if (sum == targetSum) {
+                // Imprime a linha de inteiros consecutivos
+                for (int i = start; i <= end; i++) {
+                    printf("%d ", i);
+                }
+                printf("\n");
+            }
+        }
+    }
+
+    return 0;
+}
+
+
+

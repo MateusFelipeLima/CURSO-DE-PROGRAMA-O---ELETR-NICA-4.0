@@ -1,0 +1,651 @@
+PERGUNTA 02
+
+#include <stdio.h>
+
+int main() {
+    int numero;
+
+    // Solicita ao usuário que insira um número inteiro
+    printf("Digite um número inteiro: ");
+    scanf("%d", &numero);
+
+    // Verifica se o número é positivo, negativo ou zero
+    if (numero > 0) {
+        printf("O número %d é positivo.\n", numero);
+    } else {
+        printf("O número %d não é positivo (é negativo ou zero).\n", numero);
+    }
+
+    return 0;
+}
+
+-----------------------------------------------------------
+PERGUNTA 02
+
+#include <stdio.h>
+
+int main() {
+    int numero;
+
+    // Solicita ao usuário que insira um número inteiro
+    printf("Digite um número inteiro: ");
+    scanf("%d", &numero);
+
+    // Verifica se o número é par ou ímpar
+    if (numero % 2 == 0) {
+        printf("O número %d é par.\n", numero);
+    } else {
+        printf("O número %d é ímpar.\n", numero);
+    }
+
+    return 0;
+}
+
+------------------------------------------------------------
+PERGUNTA 03
+
+#include <stdio.h>
+
+int main() {
+    float numero;
+
+    // Solicita ao usuário que insira um número real
+    printf("Digite um número real: ");
+    scanf("%f", &numero);
+
+    // Verifica se o número está no intervalo [5, 10[
+    if (numero >= 5.0 && numero < 10.0) {
+        printf("O número %.2f está no intervalo [5, 10[.\n", numero);
+    } else {
+        printf("O número %.2f não está no intervalo [5, 10[.\n", numero);
+    }
+
+    return 0;
+}
+
+-------------------------------------------------------------
+PERGUNTA 04
+#include <stdio.h>
+
+int main() {
+    float numero;
+
+    // Solicita ao usuário que insira um número real
+    printf("Digite um número real: ");
+    scanf("%f", &numero);
+
+    // Verifica a Condição A: 3 ≤ x < 8.5
+    if (numero >= 3.0 && numero < 8.5) {
+        printf("Condição A: Atendida\n");
+    } else {
+        printf("Condição A: Não atendida\n");
+    }
+
+    // Verifica a Condição B: x < 3 OU 5.4 < x ≤ 7.3 OU x > 13
+    if (numero < 3.0 || (numero > 5.4 && numero <= 7.3) || numero > 13.0) {
+        printf("Condição B: Atendida\n");
+    } else {
+        printf("Condição B: Não atendida\n");
+    }
+
+    // Verifica a Condição C: x ≠ 3 E x < 9.75
+    if (numero != 3.0 && numero < 9.75) {
+        printf("Condição C: Atendida\n");
+    } else {
+        printf("Condição C: Não atendida\n");
+    }
+
+    return 0;
+}
+-------------------------------------------------------------
+PERGUNTA 05
+#include <stdio.h>
+
+int main() {
+    float numero;
+
+    // Solicita ao usuário que insira um número real
+    printf("Digite um número real: ");
+    scanf("%f", &numero);
+
+    // Verifica se o número é positivo, zero ou negativo
+    if (numero > 0) {
+        printf("O número %.2f é positivo.\n", numero);
+    } else if (numero < 0) {
+        printf("O número %.2f é negativo.\n", numero);
+    } else {
+        printf("O número é zero.\n");
+    }
+
+    return 0;
+}
+-------------------------------------------------------------
+PERGUNTO 06
+
+#include <stdio.h>
+
+int main() {
+    int numero, menor;
+
+    // Solicita o primeiro número e assume que é o menor
+    printf("Digite o primeiro número inteiro: ");
+    scanf("%d", &numero);
+    menor = numero;
+
+    // Solicita os próximos 4 números e atualiza o menor valor
+    printf("Digite o segundo número inteiro: ");
+    scanf("%d", &numero);
+    if (numero < menor) {
+        menor = numero;
+    }
+
+    printf("Digite o terceiro número inteiro: ");
+    scanf("%d", &numero);
+    if (numero < menor) {
+        menor = numero;
+    }
+
+    printf("Digite o quarto número inteiro: ");
+    scanf("%d", &numero);
+    if (numero < menor) {
+        menor = numero;
+    }
+
+    printf("Digite o quinto número inteiro: ");
+    scanf("%d", &numero);
+    if (numero < menor) {
+        menor = numero;
+    }
+
+    // Imprime o menor valor
+    printf("O menor valor digitado é: %d\n", menor);
+
+    return 0;
+}
+------------------------------------------------------------
+PERGUNTA 07
+
+#include <stdio.h>
+
+int main() {
+    float velocidade, limite, multa, excesso;
+    const float VALOR_FIXO = 100.0;
+    const float VALOR_VARIAVEL = 2.5;
+
+    // Mensagem de alerta
+    printf("Atenção! Exceder o limite de velocidade é severamente multado!\n");
+
+    // Solicita a velocidade do usuário
+    printf("Digite sua velocidade: ");
+    scanf("%f", &velocidade);
+
+    // Solicita o limite de velocidade
+    printf("Digite o limite de velocidade: ");
+    scanf("%f", &limite);
+
+    // Verifica se a velocidade está acima do limite
+    if (velocidade > limite) {
+        // Calcula o excesso de velocidade
+        excesso = velocidade - limite;
+        
+        // Calcula a multa total
+        multa = VALOR_FIXO + (excesso * VALOR_VARIAVEL);
+        
+        // Exibe a mensagem com a multa
+        printf("Sua velocidade está %.2f km/h acima do limite.\n", excesso);
+        printf("Sua multa é de %.2f euros.\n", multa);
+    } else {
+        // Se a velocidade estiver dentro do limite
+        printf("Sua velocidade está dentro do limite.\n");
+    }
+
+    return 0;
+}
+-----------------------------------------------------------
+PERGUNTA 08
+
+#include <stdio.h>
+
+int main() {
+    float altura, peso, imc;
+
+    // Solicita ao usuário a altura e o peso
+    printf("Digite sua altura em metros (ex: 1.75): ");
+    scanf("%f", &altura);
+    
+    printf("Digite seu peso em quilogramas (ex: 70): ");
+    scanf("%f", &peso);
+
+    // Calcula o IMC
+    imc = peso / (altura * altura);
+
+    // Exibe o IMC e a categoria correspondente
+    printf("Seu IMC é %.2f\n", imc);
+
+    if (imc < 18.5) {
+        printf("Categoria: Abaixo do peso\n");
+    } else if (imc >= 18.5 && imc < 25.0) {
+        printf("Categoria: Peso normal\n");
+    } else if (imc >= 25.0 && imc < 30.0) {
+        printf("Categoria: Sobrepeso\n");
+    } else {
+        printf("Categoria: Obesidade\n");
+    }
+
+    return 0;
+}
+
+-----------------------------------------------------------
+PERGUNTA 09
+
+#include <stdio.h>
+
+int main() {
+    float altura, peso, imc;
+
+    // Solicita ao usuário a altura e o peso
+    printf("Digite sua altura em metros (ex: 1.75): ");
+    scanf("%f", &altura);
+    
+    printf("Digite seu peso em quilogramas (ex: 70): ");
+    scanf("%f", &peso);
+
+    // Calcula o IMC
+    imc = peso / (altura * altura);
+
+    // Exibe o IMC e a categoria correspondente
+    printf("Seu IMC é %.2f\n", imc);
+
+    if (imc < 18.5) {
+        printf("Categoria: Abaixo do peso\n");
+    } else if (imc >= 18.5 && imc < 25.0) {
+        printf("Categoria: Peso normal\n");
+    } else if (imc >= 25.0 && imc < 30.0) {
+        printf("Categoria: Sobrepeso\n");
+    } else {
+        printf("Categoria: Obesidade\n");
+    }
+
+    return 0;
+}
+
+-----------------------------------------------------------
+PERGUNTA 10
+
+#include <stdio.h>
+
+int main() {
+    int diaAtual, mesAtual, anoAtual;
+    int diaNascimento, mesNascimento, anoNascimento;
+    int idadeAnos, idadeMeses;
+
+    // Solicita a data atual
+    printf("Digite a data atual (dia mês ano): ");
+    scanf("%d %d %d", &diaAtual, &mesAtual, &anoAtual);
+
+    // Solicita a data de nascimento
+    printf("Digite sua data de nascimento (dia mês ano): ");
+    scanf("%d %d %d", &diaNascimento, &mesNascimento, &anoNascimento);
+
+    // Calcula a idade inicial em anos
+    idadeAnos = anoAtual - anoNascimento;
+
+    // Calcula a idade em meses considerando a diferença nos meses
+    idadeMeses = mesAtual - mesNascimento;
+
+    // Ajusta a idade em anos e meses se necessário
+    if (idadeMeses < 0) {
+        idadeAnos--;
+        idadeMeses += 12;
+    }
+
+    // Ajusta a idade se o dia do mês atual for menor que o dia de nascimento
+    if (diaAtual < diaNascimento) {
+        idadeMeses--;
+    }
+
+    // Ajusta a idade se o mês se tornar negativo após a subtração dos dias
+    if (idadeMeses < 0) {
+        idadeAnos--;
+        idadeMeses += 12;
+    }
+
+    // Exibe a idade
+    printf("Sua idade é: %d anos e %d meses\n", idadeAnos, idadeMeses);
+
+    return 0;
+}
+
+---------------------------------------------------------
+PERGUNTA 11
+
+#include <stdio.h>
+
+int main() {
+    int hInicio, mInicio, sInicio;
+    int hTermino, mTermino, sTermino;
+    int hDiff, mDiff, sDiff;
+
+    // Solicita o horário de início
+    printf("Digite o horário de início (hh mm ss): ");
+    scanf("%d %d %d", &hInicio, &mInicio, &sInicio);
+
+    // Solicita o horário de término
+    printf("Digite o horário de término (hh mm ss): ");
+    scanf("%d %d %d", &hTermino, &mTermino, &sTermino);
+
+    // Converte o horário de início e término para segundos desde o início do dia
+    int segundosInicio = hInicio * 3600 + mInicio * 60 + sInicio;
+    int segundosTermino = hTermino * 3600 + mTermino * 60 + sTermino;
+
+    // Se o horário de término é menor que o horário de início, assume que é do dia seguinte
+    if (segundosTermino < segundosInicio) {
+        segundosTermino += 24 * 3600; // Adiciona 24 horas em segundos
+    }
+
+    // Calcula a diferença em segundos
+    int segundosDiferenca = segundosTermino - segundosInicio;
+
+    // Converte a diferença em horas, minutos e segundos
+    hDiff = segundosDiferenca / 3600;
+    segundosDiferenca %= 3600;
+    mDiff = segundosDiferenca / 60;
+    sDiff = segundosDiferenca % 60;
+
+    // Exibe a diferença
+    printf("Diferença de tempo: %d horas %d minutos %d segundos\n", hDiff, mDiff, sDiff);
+
+    return 0;
+}
+
+-----------------------------------------------------------
+PERGUNTA 12
+
+#include <stdio.h>
+
+int main() {
+    int a, b, c;
+    int temp;
+
+    // Solicita os três números ao usuário
+    printf("Digite três números inteiros:\n");
+    printf("Número 1: ");
+    scanf("%d", &a);
+    printf("Número 2: ");
+    scanf("%d", &b);
+    printf("Número 3: ");
+    scanf("%d", &c);
+
+    // Classifica os números usando comparações
+    // Ordena a, b, c do menor para o maior
+    if (a > b) {
+        // Troca a e b
+        temp = a;
+        a = b;
+        b = temp;
+    }
+    if (a > c) {
+        // Troca a e c
+        temp = a;
+        a = c;
+        c = temp;
+    }
+    if (b > c) {
+        // Troca b e c
+        temp = b;
+        b = c;
+        c = temp;
+    }
+
+    // Imprime os números classificados
+    printf("Os números em ordem crescente são: %d, %d, %d\n", a, b, c);
+
+    return 0;
+}
+
+-----------------------------------------------------------
+PERGUNTA 13
+
+#include <stdio.h>
+
+int main() {
+    int digito;
+
+    // Solicita um dígito ao usuário
+    printf("Digite um dígito: ");
+    scanf("%d", &digito);
+
+    // Verifica se o número inserido está entre 0 e 9
+    if (digito >= 0 && digito <= 9) {
+        // Imprime o dígito por extenso
+        switch (digito) {
+            case 0:
+                printf("Você inseriu o dígito zero.\n");
+                break;
+            case 1:
+                printf("Você inseriu o dígito um.\n");
+                break;
+            case 2:
+                printf("Você inseriu o dígito dois.\n");
+                break;
+            case 3:
+                printf("Você inseriu o dígito três.\n");
+                break;
+            case 4:
+                printf("Você inseriu o dígito quatro.\n");
+                break;
+            case 5:
+                printf("Você inseriu o dígito cinco.\n");
+                break;
+            case 6:
+                printf("Você inseriu o dígito seis.\n");
+                break;
+            case 7:
+                printf("Você inseriu o dígito sete.\n");
+                break;
+            case 8:
+                printf("Você inseriu o dígito oito.\n");
+                break;
+            case 9:
+                printf("Você inseriu o dígito nove.\n");
+                break;
+            default:
+                // Isto não deve ser alcançado devido à verificação anterior
+                break;
+        }
+    } else {
+        // Mensagem de aviso se o número não for um dígito
+        printf("O número que você inseriu não é um dígito.\n");
+    }
+
+    return 0;
+}
+
+-----------------------------------------------------------
+PERGUNTA 14
+
+#include <stdio.h>
+
+int main() {
+    float numero1, numero2, resultado;
+    char operador;
+
+    // Solicita a expressão matemática ao usuário
+    printf("Digite uma expressão (sem espaços!): ");
+    scanf("%f%c%f", &numero1, &operador, &numero2);
+
+    // Calcula o resultado com base no operador
+    switch (operador) {
+        case '+':
+            resultado = numero1 + numero2;
+            printf("%.0f %c %.0f = %.2f\n", numero1, operador, numero2, resultado);
+            break;
+        case '-':
+            resultado = numero1 - numero2;
+            printf("%.0f %c %.0f = %.2f\n", numero1, operador, numero2, resultado);
+            break;
+        case '*':
+            resultado = numero1 * numero2;
+            printf("%.0f %c %.0f = %.2f\n", numero1, operador, numero2, resultado);
+            break;
+        case '/':
+            if (numero2 != 0) {
+                resultado = numero1 / numero2;
+                printf("%.0f %c %.0f = %.2f\n", numero1, operador, numero2, resultado);
+            } else {
+                printf("Erro: Divisão por zero.\n");
+            }
+            break;
+        default:
+            printf("Operador inválido.\n");
+            break;
+    }
+
+    return 0;
+}
+
+------------------------------------------------------------
+PERGUNTA 15
+
+#include <stdio.h>
+
+int main() {
+    float consumo, precoCusto, imposto, valorTotal;
+
+    // Solicita o consumo ao usuário
+    printf("Digite o consumo em metros cúbicos (m³): ");
+    scanf("%f", &consumo);
+
+    // Calcula o preço de custo com base no consumo
+    if (consumo <= 1) {
+        precoCusto = 20.00;
+    } else {
+        precoCusto = 20.00 + (consumo - 1) * 3.50;
+    }
+
+    // Calcula o valor do imposto (21% sobre o preço de custo)
+    imposto = precoCusto * 0.21;
+
+    // Calcula o valor total (preço de custo + imposto)
+    valorTotal = precoCusto + imposto;
+
+    // Imprime a fatura
+    printf("Fatura:\n");
+    printf("Consumo: %.2f m³\n", consumo);
+    printf("Preço de custo: € %.2f\n", precoCusto);
+    printf("Valor do imposto (21%%): € %.2f\n", imposto);
+    printf("Valor total: € %.2f\n", valorTotal);
+
+    return 0;
+}
+-----------------------------------------------------------
+PERGUNTA 16
+
+#include <stdio.h>
+
+int main() {
+    float R1, R2, Req;
+
+    // Solicita os valores dos resistores
+    printf("Digite o valor de R1 (em ohms): ");
+    scanf("%f", &R1);
+    printf("Digite o valor de R2 (em ohms): ");
+    scanf("%f", &R2);
+
+    // Calcula a resistência equivalente
+    if (R1 == 0 && R2 == 0) {
+        printf("Erro: Ambos os resistores não podem ser zero.\n");
+    } else if (R1 == 0) {
+        Req = R2;
+    } else if (R2 == 0) {
+        Req = R1;
+    } else {
+        Req = 1 / (1 / R1 + 1 / R2);
+    }
+
+    // Imprime o resultado
+    printf("A resistência equivalente é: %.2f ohms\n", Req);
+
+    return 0;
+}
+
+------------------------------------------------------------
+c
+Copiar código
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    float lado1, lado2, hipotenusa;
+
+    // Solicita os comprimentos dos lados
+    printf("Digite os comprimentos dos lados (lado1 lado2 hipotenusa), usando 0 para o lado desconhecido:\n");
+    scanf("%f %f %f", &lado1, &lado2, &hipotenusa);
+
+    // Calcula o comprimento do lado desconhecido
+    if (lado1 == 0) {
+        // lado1 é desconhecido
+        lado1 = sqrt(hipotenusa * hipotenusa - lado2 * lado2);
+        printf("O comprimento do lado1 é: %.2f\n", lado1);
+    } else if (lado2 == 0) {
+        // lado2 é desconhecido
+        lado2 = sqrt(hipotenusa * hipotenusa - lado1 * lado1);
+        printf("O comprimento do lado2 é: %.2f\n", lado2);
+    } else if (hipotenusa == 0) {
+        // hipotenusa é desconhecida
+        hipotenusa = sqrt(lado1 * lado1 + lado2 * lado2);
+        printf("O comprimento da hipotenusa é: %.2f\n", hipotenusa);
+    } else {
+        // Verifica se os lados fornecidos são válidos para um triângulo retângulo
+        if (fabs(hipotenusa * hipotenusa - (lado1 * lado1 + lado2 * lado2)) < 1e-6) {
+            printf("Os lados fornecidos formam um triângulo retângulo válido.\n");
+        } else {
+            printf("Os lados fornecidos não formam um triângulo retângulo.\n");
+        }
+    }
+
+    return 0;
+}
+
+------------------------------------------------------------
+PERGUNTA 17
+
+#include <stdio.h>
+
+int main() {
+    int dia, mes, ano;
+    int K, J;
+    int h;
+    const char* dias_da_semana[] = {"Sábado", "Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira"};
+
+    // Solicita ao usuário a data
+    printf("Digite a data (dia mês ano): ");
+    scanf("%d %d %d", &dia, &mes, &ano);
+
+    // Verifica se o mês está dentro do intervalo válido
+    if (mes < 1 || mes > 12) {
+        printf("Mês inválido. O mês deve estar entre 1 e 12.\n");
+        return 1;
+    }
+
+    // Ajusta o mês e ano para o algoritmo de Zeller
+    if (mes < 3) {
+        mes += 12;  // Janeiro e Fevereiro são tratados como meses 13 e 14 do ano anterior
+        ano -= 1;
+    }
+
+    // Calcula K e J
+    K = ano % 100;
+    J = ano / 100;
+
+    // Aplica a fórmula de Zeller
+    h = (dia + (13 * (mes + 1)) / 5 + K + K / 4 + J / 4 - 2 * J) % 7;
+
+    // Ajusta o valor de h para o intervalo correto
+    h = (h + 7) % 7;
+
+    // Imprime o dia da semana correspondente
+    printf("O dia da semana correspondente é: %s\n", dias_da_semana[h]);
+
+    return 0;
+}

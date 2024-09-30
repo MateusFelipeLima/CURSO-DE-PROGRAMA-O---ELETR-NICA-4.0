@@ -1,0 +1,724 @@
+PERGUNTA 01 
+
+#include <stdio.h>
+
+#define NUM_DAYS 7  // Número de dias na semana
+
+int main(void) {
+    int temperatures[NUM_DAYS];  // Array para armazenar as temperaturas
+    int sum = 0;  // Soma das temperaturas
+    double average;  // Temperatura média
+    int i;
+
+    // Leitura das temperaturas
+    for (i = 0; i < NUM_DAYS; i++) {
+        printf("Digite a temperatura para o dia %d: ", i);
+        scanf("%d", &temperatures[i]);
+        sum += temperatures[i];  // Adiciona a temperatura à soma
+    }
+
+    // Cálculo da média
+    average = (double)sum / NUM_DAYS;
+
+    // Impressão da média
+    printf("A temperatura média para esta semana é %.2f\n", average);
+
+    return 0;
+}
+
+Digite a temperatura para o dia 0: 5
+Digite a temperatura para o dia 1: 5
+Digite a temperatura para o dia 2: 5
+Digite a temperatura para o dia 3: 5
+Digite a temperatura para o dia 4: 6
+Digite a temperatura para o dia 5: 6
+Digite a temperatura para o dia 6: 6
+A temperatura média para esta semana é 5.43
+
+------------------------------------------------------------------------------------------
+
+PERGUNTA 02
+
+#include <stdio.h>
+
+#define NUM_DAYS 7  // Número de dias na semana
+
+int main(void) {
+    int temperatures[NUM_DAYS];  // Array para armazenar as temperaturas
+    int sum = 0;  // Soma das temperaturas
+    double average;  // Temperatura média
+    int i;
+
+    // Leitura das temperaturas
+    for (i = 0; i < NUM_DAYS; i++) {
+        printf("Digite a temperatura para o dia %d: ", i);
+        scanf("%d", &temperatures[i]);
+        sum += temperatures[i];  // Adiciona a temperatura à soma
+    }
+
+    // Cálculo da média
+    average = (double)sum / NUM_DAYS;
+
+    // Impressão da temperatura média
+    printf("A temperatura média para esta semana é %.2f\n", average);
+
+    // Impressão dos dias com temperatura superior a 10°C
+    printf("Todos os dias com temperatura > 10°C:\n");
+    for (i = 0; i < NUM_DAYS; i++) {
+        if (temperatures[i] > 10) {
+            printf("dia %02d\n", i);  // Exibe o dia com temperatura acima de 10°C
+        }
+    }
+
+    return 0;
+}
+
+Digite a temperatura para o dia 0: 1
+Digite a temperatura para o dia 1: 8
+Digite a temperatura para o dia 2: 10
+Digite a temperatura para o dia 3: 12
+Digite a temperatura para o dia 4: 15
+Digite a temperatura para o dia 5: 14
+Digite a temperatura para o dia 6: 9
+A temperatura média para esta semana é 10.00
+Todos os dias com temperatura > 10°C:
+dia 03
+dia 04
+dia 05
+
+
+-----------------------------------------------------------------------------------------------
+
+PERGUNTA 02
+
+#include <stdio.h>
+
+#define NUM_DAYS 7  // Número de dias na semana
+
+// Função para ler as temperaturas
+void read_temperatures(int temperatures[], int num_days) {
+    for (int i = 0; i < num_days; i++) {
+        printf("Digite a temperatura para o dia %d: ", i);
+        scanf("%d", &temperatures[i]);
+    }
+}
+
+// Função para calcular a temperatura média
+double calculate_average(int temperatures[], int num_days) {
+    int sum = 0;
+
+    for (int i = 0; i < num_days; i++) {
+        sum += temperatures[i];
+    }
+
+    return (double)sum / num_days;
+}
+
+int main(void) {
+    int temperatures[NUM_DAYS];  // Array para armazenar as temperaturas
+    double average;  // Temperatura média
+
+    // Leitura das temperaturas
+    read_temperatures(temperatures, NUM_DAYS);
+
+    // Cálculo da média
+    average = calculate_average(temperatures, NUM_DAYS);
+
+    // Impressão da temperatura média
+    printf("A temperatura média para esta semana é %.2f\n", average);
+
+    // Impressão dos dias com temperatura superior a 10°C
+    printf("Todos os dias com temperatura > 10°C:\n");
+    for (int i = 0; i < NUM_DAYS; i++) {
+        if (temperatures[i] > 10) {
+            printf("dia %02d\n", i);  // Exibe o dia com temperatura acima de 10°C
+        }
+    }
+
+    return 0;
+}
+
+Digite a temperatura para o dia 0: 1
+Digite a temperatura para o dia 1: 8
+Digite a temperatura para o dia 2: 10
+Digite a temperatura para o dia 3: 12
+Digite a temperatura para o dia 4: 15
+Digite a temperatura para o dia 5: 14
+Digite a temperatura para o dia 6: 9
+A temperatura média para esta semana é 10.00
+Todos os dias com temperatura > 10°C:
+dia 03
+dia 04
+dia 05
+
+
+-----------------------------------------------------------------------------------------------
+
+PERGUNTA 03
+
+#include <stdio.h>
+
+#define SIZE 12
+#define COLUMNS 3
+
+// Função para ler os números e armazená-los em um array
+void ReadArray(int arr[], int size) {
+    for (int i = 0; i < size; i++) {
+        printf("Digite o número %d: ", i + 1);
+        scanf("%d", &arr[i]);
+    }
+}
+
+// Função para imprimir os números em uma matriz formatada
+void PrintMatrix(int arr[], int size, int columns) {
+    int rows = size / columns;  // Calcula o número de linhas
+
+    printf("A matriz é:\n");
+    for (int i = 0; i < size; i++) {
+        printf("%4d", arr[i]);  // Imprime o número com largura de 4 para alinhamento
+        if ((i + 1) % columns == 0) {
+            printf("\n");  // Quebra de linha após imprimir o número de colunas especificado
+        }
+    }
+}
+
+int main(void) {
+    int a[SIZE];  // Array para armazenar os números
+
+    // Leitura dos números
+    ReadArray(a, SIZE);
+
+    // Impressão da matriz
+    PrintMatrix(a, SIZE, COLUMNS);
+
+    return 0;
+}
+
+Digite o número 1: 1
+Digite o número 2: 2
+Digite o número 3: 3
+Digite o número 4: 4
+Digite o número 5: 5
+Digite o número 6: 6
+Digite o número 7: 7
+Digite o número 8: 8
+Digite o número 9: 9
+Digite o número 10: 10
+Digite o número 11: 11
+Digite o número 12: 12
+
+A matriz é:
+   1   2   3
+   4   5   6
+   7   8   9
+  10  11  12
+
+---------------------------------------------------------------------------------------------
+
+PERGUNTA 04
+
+#include <stdio.h>
+
+#define SIZE 12
+#define COLUMNS 3
+
+// Função para ler os números e armazená-los em um array
+void ReadArray(int arr[], int size) {
+    for (int i = 0; i < size; i++) {
+        printf("Digite o número %d: ", i + 1);
+        scanf("%d", &arr[i]);
+    }
+}
+
+// Função para imprimir os números em uma matriz formatada e a soma das linhas
+void PrintMatrix(int arr[], int size, int columns) {
+    int rows = size / columns;  // Calcula o número de linhas
+
+    printf("A matriz é:\n");
+    for (int i = 0; i < rows; i++) {
+        int row_sum = 0;  // Inicializa a soma da linha
+        for (int j = 0; j < columns; j++) {
+            int index = i * columns + j;
+            printf("%4d", arr[index]);  // Imprime o número com largura de 4 para alinhamento
+            row_sum += arr[index];      // Adiciona o número à soma da linha
+        }
+        printf(" | Soma da linha: %d\n", row_sum);  // Imprime a soma da linha
+    }
+}
+
+int main(void) {
+    int a[SIZE];  // Array para armazenar os números
+
+    // Leitura dos números
+    ReadArray(a, SIZE);
+
+    // Impressão da matriz e soma das linhas
+    PrintMatrix(a, SIZE, COLUMNS);
+
+    return 0;
+}
+
+Digite o número 1: 1
+Digite o número 2: 2
+Digite o número 3: 3
+Digite o número 4: 4
+Digite o número 5: 5
+Digite o número 6: 6
+Digite o número 7: 7
+Digite o número 8: 8
+Digite o número 9: 9
+Digite o número 10: 10
+Digite o número 11: 11
+Digite o número 12: 12
+
+A matriz é:
+   1   2   3 | Soma da linha:  6
+   4   5   6 | Soma da linha: 15
+   7   8   9 | Soma da linha: 24
+  10  11  12 | Soma da linha: 33
+
+------------------------------------------------------------------------------------------------
+
+PERGUNTA 05
+
+#include <stdio.h>
+
+#define SIZE 5  // Tamanho fixo das listas para este exemplo
+
+// Função para ler uma lista ordenada
+void ReadList(int list[], int size) {
+    printf("Digite a lista ordenada: ");
+    for (int i = 0; i < size; i++) {
+        scanf("%d", &list[i]);
+    }
+}
+
+// Função para mesclar duas listas ordenadas
+void MergeLists(int list1[], int size1, int list2[], int size2, int mergedList[]) {
+    int i = 0, j = 0, k = 0;
+
+    // Mescla as duas listas enquanto há elementos em ambas
+    while (i < size1 && j < size2) {
+        if (list1[i] < list2[j]) {
+            mergedList[k++] = list1[i++];
+        } else {
+            mergedList[k++] = list2[j++];
+        }
+    }
+
+    // Adiciona os elementos restantes da lista1, se houver
+    while (i < size1) {
+        mergedList[k++] = list1[i++];
+    }
+
+    // Adiciona os elementos restantes da lista2, se houver
+    while (j < size2) {
+        mergedList[k++] = list2[j++];
+    }
+}
+
+// Função para imprimir a lista mesclada
+void PrintList(int list[], int size) {
+    printf("A lista mesclada é: ");
+    for (int i = 0; i < size; i++) {
+        printf("%d ", list[i]);
+    }
+    printf("\n");
+}
+
+int main(void) {
+    int list1[SIZE], list2[SIZE];
+    int mergedList[2 * SIZE];
+
+    // Leitura das duas listas
+    ReadList(list1, SIZE);
+    ReadList(list2, SIZE);
+
+    // Mescla as listas
+    MergeLists(list1, SIZE, list2, SIZE, mergedList);
+
+    // Imprime a lista mesclada
+    PrintList(mergedList, 2 * SIZE);
+
+    return 0;
+}
+
+Digite a lista ordenada: 5 9 12 54 78
+Digite a lista ordenada: 2 3 34 45 102
+
+A lista mesclada é: 2 3 5 9 12 34 45 54 78 102
+
+------------------------------------------------------------------------------------------------
+
+PERGUNTA 06
+
+#include <stdio.h>
+
+#define SIZE 5  // Tamanho fixo das listas para este exemplo
+
+// Função para ler uma lista ordenada
+void ReadList(int list[], int size) {
+    printf("Digite a lista ordenada: ");
+    for (int i = 0; i < size; i++) {
+        scanf("%d", &list[i]);
+    }
+}
+
+// Função para mesclar duas listas ordenadas
+void MergeLists(int list1[], int size1, int list2[], int size2, int mergedList[]) {
+    int i = 0, j = 0, k = 0;
+
+    // Mescla as duas listas enquanto há elementos em ambas
+    while (i < size1 && j < size2) {
+        if (list1[i] < list2[j]) {
+            mergedList[k++] = list1[i++];
+        } else {
+            mergedList[k++] = list2[j++];
+        }
+    }
+
+    // Adiciona os elementos restantes da lista1, se houver
+    while (i < size1) {
+        mergedList[k++] = list1[i++];
+    }
+
+    // Adiciona os elementos restantes da lista2, se houver
+    while (j < size2) {
+        mergedList[k++] = list2[j++];
+    }
+}
+
+// Função para trocar o menor e o maior valor em uma lista
+void SwapMinMax(int list[], int size) {
+    if (size == 0) return;
+
+    int minIndex = 0;
+    int maxIndex = 0;
+
+    // Encontra os índices do menor e maior valor
+    for (int i = 1; i < size; i++) {
+        if (list[i] < list[minIndex]) {
+            minIndex = i;
+        }
+        if (list[i] > list[maxIndex]) {
+            maxIndex = i;
+        }
+    }
+
+    // Troca os valores se o menor e o maior não são o mesmo
+    if (minIndex != maxIndex) {
+        int temp = list[minIndex];
+        list[minIndex] = list[maxIndex];
+        list[maxIndex] = temp;
+    }
+}
+
+// Função para imprimir a lista
+void PrintList(int list[], int size) {
+    printf("A lista mesclada é: ");
+    for (int i = 0; i < size; i++) {
+        printf("%d ", list[i]);
+    }
+    printf("\n");
+}
+
+int main(void) {
+    int list1[SIZE], list2[SIZE];
+    int mergedList[2 * SIZE];
+
+    // Leitura das duas listas
+    ReadList(list1, SIZE);
+    ReadList(list2, SIZE);
+
+    // Mescla as listas
+    MergeLists(list1, SIZE, list2, SIZE, mergedList);
+
+    // Troca o menor e o maior valor da lista mesclada
+    SwapMinMax(mergedList, 2 * SIZE);
+
+    // Imprime a lista mesclada
+    PrintList(mergedList, 2 * SIZE);
+
+    return 0;
+}
+
+
+-----------------------------------------------------------------------------------------------
+
+PERGUNTA 07
+
+#include <stdio.h>
+
+#define SIZE 20
+
+// Função para ler 20 números e armazená-los em um array
+void ReadArray(int arr[], int size) {
+    printf("Digite uma lista de %d números:\n", size);
+    for (int i = 0; i < size; i++) {
+        scanf("%d", &arr[i]);
+    }
+}
+
+// Função para remover duplicatas do array
+void RemoveDuplicates(int arr[], int *size) {
+    int i, j, k;
+    int newSize = 0;
+
+    // Itera sobre cada elemento do array
+    for (i = 0; i < *size; i++) {
+        // Verifica se o arr[i] é um duplicado
+        int isDuplicate = 0;
+        for (j = 0; j < newSize; j++) {
+            if (arr[i] == arr[j]) {
+                isDuplicate = 1;
+                break;
+            }
+        }
+
+        // Se não for duplicado, coloca o número na posição 'newSize'
+        if (!isDuplicate) {
+            arr[newSize++] = arr[i];
+        }
+    }
+
+    // Atualiza o tamanho do array após remoção de duplicatas
+    *size = newSize;
+}
+
+// Função para imprimir o array
+void PrintArray(int arr[], int size) {
+    printf("Os números armazenados no array limpo são:\n");
+    for (int i = 0; i < size; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+}
+
+int main(void) {
+    int arr[SIZE];
+    int size = SIZE;
+
+    // Leitura dos números
+    ReadArray(arr, size);
+
+    // Remove duplicatas do array
+    RemoveDuplicates(arr, &size);
+
+    // Imprime o array após remoção das duplicatas
+    PrintArray(arr, size);
+
+    return 0;
+}
+
+Digite uma lista de 20 números:
+2 5 3 4 6 5 3 4 6 7 2 4 4 5 3 2 1 6 1 7
+
+Os números armazenados no array limpo são:
+2 5 3 4 6 7 1
+
+
+--------------------------------------------------------------------------------------------
+
+PERGUNTA 08
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <stdbool.h>
+
+// Função para verificar se um número está no array
+bool isNumberInArray(int arr[], int size, int number) {
+    for (int i = 0; i < size; i++) {
+        if (arr[i] == number) {
+            return true;
+        }
+    }
+    return false;
+}
+
+// Função para gerar números aleatórios distintos
+void generateUniqueNumbers(int arr[], int size, int min, int max) {
+    int count = 0;
+
+    while (count < size) {
+        int num = (rand() % (max - min + 1)) + min;
+
+        // Verifica se o número já está no array
+        if (!isNumberInArray(arr, count, num)) {
+            arr[count++] = num;
+        }
+    }
+}
+
+int main(void) {
+    const int NUM_COUNT = 6;
+    const int MIN = 1;
+    const int MAX = 42;
+    int numbers[NUM_COUNT];
+
+    // Inicializa o gerador de números aleatórios
+    srand(time(NULL));
+
+    // Gera 6 números aleatórios distintos no intervalo [1, 42]
+    generateUniqueNumbers(numbers, NUM_COUNT, MIN, MAX);
+
+    // Imprime os números gerados
+    printf("Números aleatórios distintos gerados:\n");
+    for (int i = 0; i < NUM_COUNT; i++) {
+        printf("%d ", numbers[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
+
+
+-------------------------------------------------------------------------------------------
+
+PERGUNTA 09
+
+#include <stdio.h>
+
+#define MAX_SIZE 10
+
+// Função para ler uma lista de inteiros
+void ReadList(int list[], int *size) {
+    int number;
+    *size = 0;
+    printf("Digite uma lista de no máximo %d inteiros (pare com 0):\n", MAX_SIZE);
+
+    while (*size < MAX_SIZE) {
+        scanf("%d", &number);
+        if (number == 0) {
+            break;
+        }
+        list[*size] = number;
+        (*size)++;
+    }
+}
+
+// Função para verificar se duas listas contêm números iguais
+int CheckCommonNumbers(int list1[], int size1, int list2[], int size2) {
+    for (int i = 0; i < size1; i++) {
+        for (int j = 0; j < size2; j++) {
+            if (list1[i] == list2[j]) {
+                return 1; // Retorna 1 se houver números iguais
+            }
+        }
+    }
+    return 0; // Retorna 0 se não houver números iguais
+}
+
+// Função para imprimir uma lista
+void PrintList(int list[], int size) {
+    for (int i = 0; i < size; i++) {
+        printf("%d ", list[i]);
+    }
+    printf("\n");
+}
+
+int main(void) {
+    int list1[MAX_SIZE];
+    int list2[MAX_SIZE];
+    int size1, size2;
+
+    // Leitura das duas listas
+    printf("Digite a primeira lista:\n");
+    ReadList(list1, &size1);
+    printf("Digite a segunda lista:\n");
+    ReadList(list2, &size2);
+
+    // Impressão das listas
+    printf("As listas:\n");
+    PrintList(list1, size1);
+    PrintList(list2, size2);
+
+    // Verificação de números iguais
+    if (CheckCommonNumbers(list1, size1, list2, size2)) {
+        printf("As listas contêm números iguais.\n");
+    } else {
+        printf("As listas não contêm números iguais.\n");
+    }
+
+    return 0;
+}
+
+
+---------------------------------------------------------------------------------------------
+
+PERGUNTA 10
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+#define ROLLS 400
+#define MIN_VALUE 2
+#define MAX_VALUE 12
+#define MAX_OCCURRENCES 20 // Max number of occurrences for each value (for drawing)
+
+void SimulateRolls(int occurrences[]) {
+    int die1, die2, sum;
+    
+    // Inicializa o gerador de números aleatórios
+    srand(time(NULL));
+    
+    // Inicializa o array de ocorrências com 0
+    for (int i = MIN_VALUE; i <= MAX_VALUE; i++) {
+        occurrences[i] = 0;
+    }
+    
+    // Simula 400 lançamentos
+    for (int i = 0; i < ROLLS; i++) {
+        die1 = rand() % 6 + 1; // Número aleatório entre 1 e 6
+        die2 = rand() % 6 + 1; // Número aleatório entre 1 e 6
+        sum = die1 + die2;     // Soma dos dois dados
+        occurrences[sum]++;
+    }
+}
+
+void PrintOccurrences(int occurrences[]) {
+    printf("Ocorrências de cada soma:\n");
+    for (int i = MIN_VALUE; i <= MAX_VALUE; i++) {
+        printf("Soma %2d: %d\n", i, occurrences[i]);
+    }
+}
+
+void DrawLine(int count) {
+    for (int i = 0; i < count; i++) {
+        printf("#");
+    }
+    printf("\n");
+}
+
+void PrintHistogram(int occurrences[]) {
+    printf("\nHistograma das ocorrências:\n");
+    for (int i = MIN_VALUE; i <= MAX_VALUE; i++) {
+        printf("Soma %2d: ", i);
+        // Escala do gráfico para caber no terminal
+        int scale = occurrences[i] * 50 / ROLLS; // Ajuste o fator de escala conforme necessário
+        DrawLine(scale);
+    }
+}
+
+int main(void) {
+    int occurrences[MAX_VALUE + 1] = {0};
+    
+    // Simula os lançamentos
+    SimulateRolls(occurrences);
+    
+    // Imprime as ocorrências
+    PrintOccurrences(occurrences);
+    
+    // Imprime o histograma
+    PrintHistogram(occurrences);
+    
+    return 0;
+}
+
+
+
+
+
+
+

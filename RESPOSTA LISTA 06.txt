@@ -1,0 +1,453 @@
+PERGUNTA 01
+
+#include <stdio.h>
+
+#define MAX_LENGTH 100 // Define o tamanho máximo do nome
+
+// Função que lê um nome do usuário
+void ReadName(char name[], int size) {
+    printf("Digite o nome: ");
+    fgets(name, size, stdin);
+
+    // Remove o caractere de nova linha '\n' se ele estiver presente
+    size_t len = strlen(name);
+    if (len > 0 && name[len - 1] == '\n') {
+        name[len - 1] = '\0';
+    }
+}
+
+// Função que imprime o nome
+void PrintName(const char name[]) {
+    printf("O nome digitado é: %s\n", name);
+}
+
+int main(void) {
+    char name[MAX_LENGTH];
+
+    // Lê o nome
+    ReadName(name, MAX_LENGTH);
+
+    // Imprime o nome
+    PrintName(name);
+
+    return 0;
+}
+
+
+-----------------------------------------------------------------------------------
+
+PERGUNTA 02
+
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_LENGTH 100 // Define o tamanho máximo para as strings
+
+// Função principal
+int main(void) {
+    char palavra1[MAX_LENGTH], palavra2[MAX_LENGTH], palavra3[MAX_LENGTH];
+    char resultado[MAX_LENGTH * 3 + 2]; // Tamanho suficiente para acomodar as 3 palavras e espaços adicionais
+
+    // Lê a primeira palavra
+    printf("Digite a primeira palavra: ");
+    fgets(palavra1, sizeof(palavra1), stdin);
+    palavra1[strcspn(palavra1, "\n")] = '\0'; // Remove o caractere de nova linha se presente
+
+    // Lê a segunda palavra
+    printf("Digite a segunda palavra: ");
+    fgets(palavra2, sizeof(palavra2), stdin);
+    palavra2[strcspn(palavra2, "\n")] = '\0'; // Remove o caractere de nova linha se presente
+
+    // Lê a terceira palavra
+    printf("Digite a terceira palavra: ");
+    fgets(palavra3, sizeof(palavra3), stdin);
+    palavra3[strcspn(palavra3, "\n")] = '\0'; // Remove o caractere de nova linha se presente
+
+    // Cria a quarta string com as três palavras separadas por espaço
+    snprintf(resultado, sizeof(resultado), "%s %s %s", palavra1, palavra2, palavra3);
+
+    // Imprime o resultado
+    printf("%s\n", resultado);
+
+    return 0;
+}
+
+
+--------------------------------------------------------------------------------------------
+
+PERGUNTA 03
+
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+// Função para verificar se uma string é um palíndromo
+int isPalindrome(const char *str) {
+    int start = 0;
+    int end = strlen(str) - 1;
+
+    while (start < end) {
+        // Ignora caracteres não alfabéticos e considera apenas caracteres em minúsculo
+        while (start < end && !isalpha(str[start])) {
+            start++;
+        }
+        while (start < end && !isalpha(str[end])) {
+            end--;
+        }
+
+        // Compara caracteres em minúsculo
+        if (tolower(str[start]) != tolower(str[end])) {
+            return 0; // Não é palíndromo
+        }
+
+        start++;
+        end--;
+    }
+
+    return 1; // É palíndromo
+}
+
+int main(void) {
+    char input[100];
+
+    // Lê a string do usuário
+    printf("Digite uma string: ");
+    fgets(input, sizeof(input), stdin);
+
+    // Remove o caractere de nova linha se presente
+    size_t len = strlen(input);
+    if (len > 0 && input[len - 1] == '\n') {
+        input[len - 1] = '\0';
+    }
+
+    // Verifica se a string é um palíndromo
+    if (isPalindrome(input)) {
+        printf("\"%s\" é um palíndromo.\n", input);
+    } else {
+        printf("\"%s\" não é um palíndromo.\n", input);
+    }
+
+    return 0;
+}
+
+
+-----------------------------------------------------------------------------------------
+
+PERGUNTA 04
+
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+// Função para limpar a string, removendo espaços e pontuações, e converter para minúsculas
+void cleanString(const char *input, char *cleaned) {
+    int j = 0;
+    for (int i = 0; input[i] != '\0'; i++) {
+        if (isalpha(input[i])) { // Verifica se o caractere é uma letra
+            cleaned[j++] = tolower(input[i]); // Converte para minúscula e adiciona ao cleaned
+        }
+    }
+    cleaned[j] = '\0'; // Adiciona o caractere de final de string
+}
+
+// Função para verificar se a string limpa é um palíndromo
+int isPalindrome(const char *str) {
+    int start = 0;
+    int end = strlen(str) - 1;
+
+    while (start < end) {
+        if (str[start] != str[end]) {
+            return 0; // Não é palíndromo
+        }
+        start++;
+        end--;
+    }
+
+    return 1; // É palíndromo
+}
+
+int main(void) {
+    char input[256];
+    char cleaned[256]; // Array para armazenar a string limpa
+
+    // Lê a frase do usuário
+    printf("Digite uma frase: ");
+    fgets(input, sizeof(input), stdin);
+
+    // Remove o caractere de nova linha se presente
+    size_t len = strlen(input);
+    if (len > 0 && input[len - 1] == '\n') {
+        input[len - 1] = '\0';
+    }
+
+    // Limpa a string removendo espaços, pontuações e convertendo para minúsculas
+    cleanString(input, cleaned);
+
+    // Verifica se a string limpa é um palíndromo
+    if (isPalindrome(cleaned)) {
+        printf("\"%s\" é um palíndromo.\n", input);
+    } else {
+        printf("\"%s\" não é um palíndromo.\n", input);
+    }
+
+    return 0;
+}
+
+
+-----------------------------------------------------------------------------------------------
+
+PERGUNTA 5
+
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+#include <stdlib.h>
+
+// Função para limpar a string, removendo pontuações e convertendo para minúsculas
+void cleanString(const char *input, char *cleaned) {
+    int j = 0;
+    for (int i = 0; input[i] != '\0'; i++) {
+        if (isalpha(input[i]) || input[i] == ' ') { // Mantém apenas letras e espaços
+            cleaned[j++] = tolower(input[i]); // Converte para minúscula e adiciona ao cleaned
+        }
+    }
+    cleaned[j] = '\0'; // Adiciona o caractere de final de string
+}
+
+// Função para separar as palavras da string e verificar se formam um palíndromo
+int isPalindromePhrase(const char *str) {
+    char *words[100]; // Array de ponteiros para armazenar palavras
+    int word_count = 0;
+    
+    char *token = strtok(str, " ");
+    while (token != NULL) {
+        words[word_count] = token; // Armazena o ponteiro para a palavra
+        word_count++;
+        token = strtok(NULL, " ");
+    }
+
+    // Verifica se a sequência de palavras é um palíndromo
+    for (int i = 0; i < word_count / 2; i++) {
+        if (strcmp(words[i], words[word_count - 1 - i]) != 0) {
+            return 0; // Não é um palíndromo
+        }
+    }
+
+    return 1; // É um palíndromo
+}
+
+int main(void) {
+    char input[256];
+    char 
+
+---------------------------------------------------------------------------------------------
+
+PERGUNTA 06
+
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_LENGTH 256
+
+void printWords(const char *str) {
+    char temp[MAX_LENGTH];
+    // Copia a string original para não modificar a original
+    strncpy(temp, str, MAX_LENGTH);
+    temp[MAX_LENGTH - 1] = '\0'; // Garantir a terminação da string
+
+    // Usa strtok para dividir a string com base no espaço
+    char *token = strtok(temp, " ");
+    while (token != NULL) {
+        printf("%s\n", token); // Imprime cada palavra em uma nova linha
+        token = strtok(NULL, " "); // Obtém o próximo token
+    }
+}
+
+int main(void) {
+    char input[MAX_LENGTH];
+
+    // Lê a string do usuário
+    printf("Digite uma string: ");
+    fgets(input, sizeof(input), stdin);
+
+    // Remove o caractere de nova linha se presente
+    size_t len = strlen(input);
+    if (len > 0 && input[len - 1] == '\n') {
+        input[len - 1] = '\0';
+    }
+
+    // Imprime as palavras da string
+    printf("Palavras separadas:\n");
+    printWords(input);
+
+    return 0;
+}
+
+
+----------------------------------------------------------------------------------------------
+
+PERGUNTA 07 
+
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_LENGTH 100
+
+void sortNames(char *name1, char *name2) {
+    // Compara as duas strings e troca se necessário
+    if (strcmp(name1, name2) > 0) {
+        char temp[MAX_LENGTH];
+        strcpy(temp, name1);
+        strcpy(name1, name2);
+        strcpy(name2, temp);
+    }
+}
+
+int main(void) {
+    char name1[MAX_LENGTH];
+    char name2[MAX_LENGTH];
+
+    // Lê o primeiro nome
+    printf("Digite o primeiro nome: ");
+    fgets(name1, sizeof(name1), stdin);
+    // Remove o caractere de nova linha se presente
+    size_t len = strlen(name1);
+    if (len > 0 && name1[len - 1] == '\n') {
+        name1[len - 1] = '\0';
+    }
+
+    // Lê o segundo nome
+    printf("Digite o segundo nome: ");
+    fgets(name2, sizeof(name2), stdin);
+    // Remove o caractere de nova linha se presente
+    len = strlen(name2);
+    if (len > 0 && name2[len - 1] == '\n') {
+        name2[len - 1] = '\0';
+    }
+
+    // Ordena e imprime os nomes
+    sortNames(name1, name2);
+
+    printf("Nomes em ordem alfabética:\n");
+    printf("%s\n", name1);
+    printf("%s\n", name2);
+
+    return 0;
+}
+
+
+-----------------------------------------------------------------------------------------
+
+PERGUNTA 08
+
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_LENGTH 100
+
+void sortNames(char names[3][MAX_LENGTH]) {
+    char temp[MAX_LENGTH];
+    for (int i = 0; i < 2; i++) {
+        for (int j = i + 1; j < 3; j++) {
+            if (strcmp(names[i], names[j]) > 0) {
+                strcpy(temp, names[i]);
+                strcpy(names[i], names[j]);
+                strcpy(names[j], temp);
+            }
+        }
+    }
+}
+
+int main(void) {
+    char names[3][MAX_LENGTH];
+
+    // Lê os três nomes
+    for (int i = 0; i < 3; i++) {
+        printf("Digite o nome %d: ", i + 1);
+        fgets(names[i], sizeof(names[i]), stdin);
+        // Remove o caractere de nova linha se presente
+        size_t len = strlen(names[i]);
+        if (len > 0 && names[i][len - 1] == '\n') {
+            names[i][len - 1] = '\0';
+        }
+    }
+
+    // Ordena os nomes
+    sortNames(names);
+
+    // Imprime os nomes em ordem alfabética
+    printf("Nomes em ordem alfabética:\n");
+    for (int i = 0; i < 3; i++) {
+        printf("%s\n", names[i]);
+    }
+
+    return 0;
+}
+
+
+------------------------------------------------------------------------------------------
+
+PERGUNTA 09 
+
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+#define MAX_LENGTH 100
+#define NUM_NAMES 6
+
+// Função para remover pontuação e espaços e converter para maiúsculas
+void formatString(const char *input, char *output) {
+    int j = 0;
+    for (int i = 0; input[i]; i++) {
+        if (isalpha(input[i])) { // Mantém apenas letras
+            output[j++] = toupper(input[i]); // Converte para maiúsculas
+        }
+    }
+    output[j] = '\0'; // Termina a string
+}
+
+// Função para comparar duas strings
+int compareStrings(const char *str1, const char *str2) {
+    char formatted1[MAX_LENGTH], formatted2[MAX_LENGTH];
+    formatString(str1, formatted1);
+    formatString(str2, formatted2);
+    return strcmp(formatted1, formatted2);
+}
+
+// Função para ordenar os nomes usando a função de comparação personalizada
+void sortNames(char names[NUM_NAMES][MAX_LENGTH]) {
+    char temp[MAX_LENGTH];
+    for (int i = 0; i < NUM_NAMES - 1; i++) {
+        for (int j = i + 1; j < NUM_NAMES; j++) {
+            if (compareStrings(names[i], names[j]) > 0) {
+                strcpy(temp, names[i]);
+                strcpy(names[i], names[j]);
+                strcpy(names[j], temp);
+            }
+        }
+    }
+}
+
+int main(void) {
+    char names[NUM_NAMES][MAX_LENGTH] = {
+        "O’Neil",
+        "Mac Alastair",
+        "Macbride",
+        "mac Caba",
+        "O Neal",
+        "Orman"
+    };
+
+    // Ordena os nomes
+    sortNames(names);
+
+    // Imprime os nomes em ordem alfabética
+    printf("Nomes em ordem alfabética:\n");
+    for (int i = 0; i < NUM_NAMES; i++) {
+        printf("%s\n", names[i]);
+    }
+
+    return 0;
+}
+
