@@ -1,0 +1,158 @@
+#include <dht.h>
+#include <LiquidCrystal.h>
+
+// Define os pinos que serão utilizados para ligação ao display
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+dht DHT; // Cria um objeto da classe dht
+uint32_t timer = 0;
+
+// Pinos dos botões
+#define BUTTON_NAV 10
+#define BUTTON_CONFIRM 13
+
+// Pinos do sensor HC-SR04
+#define TRIG_PIN 8
+#define ECHO_PIN 9
+
+// Pinos dos LEDs do semáforo
+const int ledVerde = A1;
+const int ledAmarelo = A2;
+const int ledVermelho = A3;
+
+int menuIndex = 0;
+const char* menuItems[] = {"TEMPERATURA", "UMIDADE", "DISTANCIA", "SEMAFORO"};
+const int menuSize = sizeof(menuItems) / sizeof(menuItems[0]);
+
+// Estado do semáforo
+int semaforoState = -1; // -1 indica que o semáforo não está ativo
+unsigned long semaforoTimer = 0;
+
+void setup() {
+  Serial.begin(9600); // Inicializa serial com taxa de transmissão de 9600 bauds
+  lcd.begin(16, 2); // Define o display com 16 colunas e 2 linhas
+  lcd.clear(); // Limpa a tela do display
+  
+  // Configura os pinos do HC-SR04
+  pinMode(TRIG_PIN, OUTPUT);
+  pinMode(ECHO_PIN, INPUT);
+
+  // Configura os botões
+  pinMode(BUTTON_NAV, INPUT_PULLUP);
+  pinMode(BUTTON_CONFIRM, INPUT_PULLUP);
+
+  // Configura os pinos dos LEDs como saída
+  pinMode(ledVerde, OUTPUT);
+  pinMode(ledAmarelo, OUTPUT);
+  pinMode(ledVermelho, OUTPUT);
+  
+  showMenu();
+}
+
+void loop() {
+  if (digitalRead(BUTTON_NAV) == LOW) {
+    menuIndex = (menuIndex + 1) % menuSize; // Navega para o próximo item
+    showMenu();
+    delay(300); // Debounce
+  }
+
+  if (digitalRead(BUTTON_CONFIRM) == LOW) {
+    if (strcmp(menuItems[menuIndex], "SEMAFORO") == 0) {
+      startSemaforo();
+    } else {
+      displayData(menuItems[menuIndex]); // Exibe os dados da seleção
+    }
+    delay(300); // Debounce
+  }
+
+  if (semaforoState != -1) { // Atualiza o semáforo se estiver ativo
+    updateSemaforo();
+  } else {
+    // Desliga todos os LEDs quando o semáforo não está ativo
+    digitalWrite(ledVerde, LOW);
+    digitalWrite(ledAmarelo, LOW);
+    digitalWrite(ledVermelho, LOW);
+  }
+}
+
+void showMenu() {
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("======MENU======");
+  lcd.setCursor(0, 1);
+  lcd.print(menuItems[menuIndex]);
+}
+
+void displayData(const char* item) {
+  if (millis() - timer >= 2000) {
+    DHT.read11(A0); // Chama método de leitura do DHT
+
+    lcd.clear();
+    if (strcmp(item, "TEMPERATURA") == 0) {
+      lcd.print("Temp: ");
+      lcd.print(DHT.temperature);
+      lcd.write(0B11011111); // Imprime o símbolo de grau
+      lcd.print("C");
+    } else if (strcmp(item, "UMIDADE") == 0) {
+      lcd.print("Umid: ");
+      lcd.print(DHT.humidity);
+      lcd.print("%");
+    } else if (strcmp(item, "DISTANCIA") == 0) {
+      digitalWrite(TRIG_PIN, LOW);
+      delayMicroseconds(2);
+      digitalWrite(TRIG_PIN, HIGH);
+      delayMicroseconds(10);
+      digitalWrite(TRIG_PIN, LOW);
+      
+      long duration = pulseIn(ECHO_PIN, HIGH);
+      float distance = duration * 0.034 / 2; // Distância em cm
+
+      lcd.print("Dist: ");
+      lcd.print(distance);
+      lcd.print(" cm");
+    }
+
+    timer = millis(); // Atualiza a referência
+  }
+}
+
+void startSemaforo() {
+  semaforoState = 0; // Começa no vermelho
+  semaforoTimer = millis();
+}
+
+void updateSemaforo() {
+  switch (semaforoState) {
+    case 0: // Vermelho
+      analogWrite(ledVerde, 255);
+      lcd.clear();
+      lcd.print("Semaforo: Verde");
+      if (millis() - semaforoTimer >= 10000) { // 10 segundos
+        analogWrite(ledVerde, 0);
+        semaforoState++;
+        semaforoTimer = millis();
+      }
+      break;
+    case 1: // Amarelo
+      analogWrite(ledAmarelo, 255);
+      lcd.clear();
+      lcd.print("Semaforo: Amarelo");
+      delay(500);
+      analogWrite(ledAmarelo, 0);
+      delay(500);
+      lcd.clear();
+      lcd.print("Semaforo: Amarelo");
+      delay(500);
+      semaforoState++;
+      semaforoTimer = millis();
+      break;
+    case 2: // Verde
+      analogWrite(ledVermelho, 255);
+      lcd.clear();
+      lcd.print("Semaforo: Vermelho");
+      if (millis() - semaforoTimer >= 10000) { // 10 segundos
+        analogWrite(ledVermelho, 0);
+        semaforoState = -1; // Retorna ao estado inicial
+      }
+      break;
+  }
+}
